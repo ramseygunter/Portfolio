@@ -91,6 +91,7 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.2s;
+      white-space: nowrap;
     }
     .nav-links a:hover { color: var(--terracotta); }
     .nav-home { display: inline-flex; align-items: center; gap: 4px; line-height: 1; }
@@ -107,6 +108,17 @@
       transition: border-color 0.2s, color 0.2s;
     }
     .theme-toggle:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 5vw; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.72rem; }
+      .theme-toggle {
+        position: static;
+        margin-left: 1rem;
+        flex-shrink: 0;
+      }
+    }
     html:not(.dark) .icon-sun { display: none; }
     html.dark .icon-moon { display: none; }
 
