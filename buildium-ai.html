@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buildium AI — Ramsey Gunter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFF9F3;
+      --sand: #E8DDD0;
+      --ink: #1E1A17;
+      --ink-muted: #6B5E52;
+      --terracotta: #B5714A;
+      --terracotta-light: #C8835E;
+      --periwinkle: #7B82C9;
+      --periwinkle-light: #A0A6DB;
+      --periwinkle-dark: #5558A8;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Raleway', system-ui, sans-serif;
+      --bg-primary: var(--cream);
+      --bg-secondary: var(--warm-white);
+      --text-main: var(--ink);
+      --text-muted: var(--ink-muted);
+      --border: var(--sand);
+      --card-bg: #fff;
+      --nav-bg: rgba(250,247,242,0.92);
+      --nav-border: var(--sand);
+      --contact-bg: var(--ink);
+      --footer-bg: var(--ink);
+      --panel-text: #F0EAE2;
+      --contact-text: #C8B9A8;
+    }
+    html.dark {
+      --bg-primary: #18120F;
+      --bg-secondary: #1F1712;
+      --text-main: #F0EAE2;
+      --text-muted: #A89B8C;
+      --border: rgba(255,255,255,0.08);
+      --card-bg: #241C18;
+      --nav-bg: rgba(24,18,15,0.92);
+      --nav-border: rgba(255,255,255,0.08);
+      --contact-bg: #100D0A;
+      --footer-bg: #100D0A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.25rem 5vw;
+      background: var(--nav-bg);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--nav-border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin: 0; padding: 0;
+    }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-home { display: inline-flex; align-items: center; gap: 4px; line-height: 1; }
+
+    .theme-toggle {
+      position: absolute; right: 5vw;
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--terracotta); color: var(--terracotta); }
+    html:not(.dark) .icon-sun { display: none; }
+    html.dark .icon-moon { display: none; }
+
+    /* ── LAYOUT ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 5vw 6rem;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 110px;
+      right: 3vw;
+      width: 200px;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-left: 2px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      color: var(--periwinkle);
+      border-left-color: var(--periwinkle);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--periwinkle); }
+    .back-link svg { flex-shrink: 0; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content { min-width: 0; }
+
+    /* Hero */
+    .case-hero {
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .case-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 1rem;
+    }
+
+    .case-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+    .case-title em { font-style: italic; color: var(--periwinkle); }
+
+    .case-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item { }
+    .meta-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 0.25rem;
+    }
+    .meta-value {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Sections */
+    .case-section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 100px;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--text-main);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .subsection {
+      margin-bottom: 3rem;
+    }
+
+    .subsection-heading {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 1rem;
+    }
+
+    .case-body {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      max-width: 680px;
+    }
+
+    /* Overview grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .overview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .overview-card .subsection-heading { margin-bottom: 0.6rem; }
+
+    /* Images */
+    .case-image {
+      width: 100%;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .image-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .image-row .case-image {
+      margin: 0;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .pain-points-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .pain-point-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      width: 160px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .pain-point-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Next steps list */
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .steps-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .step-dot {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--periwinkle);
+      margin-top: 0.55rem;
+    }
+
+    /* Results grid */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .results-grid .case-image {
+      margin: 0;
+      height: 180px;
+      object-fit: cover;
+    }
+    .results-grid .case-image.full {
+      grid-column: 1 / -1;
+      height: auto;
+    }
+
+    /* Conclusion highlight */
+    .takeaway-box {
+      background: linear-gradient(135deg, rgba(123,130,201,0.08), rgba(160,166,219,0.06));
+      border: 1px solid rgba(123,130,201,0.25);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .takeaway-box p {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-main);
+      line-height: 1.75;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--footer-bg);
+      color: var(--panel-text);
+      text-align: center;
+      padding: 2.5rem 5vw;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .page-wrapper { padding-top: 90px; }
+      .sidebar { display: none; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .image-row { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-home">Ramsey
+        <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;">
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/>
+          <circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/>
+        </svg>
+      </a></li>
+      <li><a href="index.html#about">About Me</a></li>
+      <li><a href="index.html#portfolio">My Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="icon-moon" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(-45deg)">
+        <path d="M27.83 8.05 A16 16 0 1 0 27.83 35.95 A14 14 0 0 1 27.83 8.05 Z" fill="currentColor"/>
+        <path d="M31,21 L32.18,24.38 L35.76,24.46 L32.90,26.62 L33.94,30.05 L31,28 L28.06,30.05 L29.10,26.62 L26.24,24.46 L29.82,24.38 Z" fill="currentColor"/>
+        <path d="M37,12.5 L37.82,14.87 L40.33,14.92 L38.33,16.43 L39.06,18.83 L37,17.4 L34.94,18.83 L35.67,16.43 L33.67,14.92 L36.18,14.87 Z" fill="currentColor"/>
+        <path d="M41,21.5 L41.59,23.19 L43.38,23.23 L41.95,24.31 L42.47,26.02 L41,26.5 L39.53,26.02 L40.05,24.31 L38.62,23.23 L40.41,23.19 Z" fill="currentColor" opacity="0.75"/>
+      </svg>
+      <svg class="icon-sun" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22,3 L23.4,13.5 L26.2,10.2 L25.8,15.2 L33.5,9.3 L28.5,17.2 L32.7,16 L29.3,19.5 L40.2,18.5 L30.4,22 L40.2,25.5 L29.3,24.5 L32.7,28 L28.5,26.8 L33.5,34.7 L25.8,28.8 L26.2,33.8 L23.4,30.5 L22,41 L20.6,30.5 L17.8,33.8 L18.2,28.8 L10.5,34.7 L15.5,26.8 L11.3,28 L14.7,24.5 L3.8,25.5 L13.6,22 L3.8,18.5 L14.7,19.5 L11.3,16 L15.5,17.2 L10.5,9.3 L18.2,15.2 L17.8,10.2 L20.6,13.5 Z" fill="currentColor"/>
+        <circle cx="22" cy="22" r="9.5" fill="var(--bg-primary)"/>
+        <circle cx="22" cy="22" r="8" fill="currentColor"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a href="index.html#portfolio" class="back-link">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Portfolio
+      </a>
+      <ul class="sidebar-nav">
+        <li><a href="#overview">Project overview</a></li>
+        <li><a href="#understanding">Understanding the reader</a></li>
+        <li><a href="#simplifying">Simplifying and connecting</a></li>
+        <li><a href="#rules">Establishing rules</a></li>
+        <li><a href="#embedding">Embedding AI</a></li>
+        <li><a href="#global">Thinking globally</a></li>
+        <li><a href="#reviewing">Reviewing and iterating</a></li>
+        <li><a href="#next-steps">Next steps</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- HERO -->
+      <header class="case-hero">
+        <div class="case-label">Case Study · Prompt Engineering · Conversation Design · SaaS</div>
+        <h1 class="case-title"><em>Buildium</em> AI</h1>
+        <div class="case-meta">
+          <div class="meta-item">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">Content Designer</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">2 weeks</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Team</div>
+            <div class="meta-value">Product Designer</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PROJECT OVERVIEW -->
+      <section class="case-section" id="overview">
+        <h2 class="section-heading">Project overview</h2>
+
+        <div class="overview-grid">
+          <div class="overview-card">
+            <div class="subsection-heading">Brief</div>
+            <p class="case-body" style="margin:0">Buildium is a cloud-based property management software company that recently implemented an AI-first roadmap and needs scalable AI design guidance for its international UX team. As the Content Designer, I developed tone of voice and prompt design guidance while collaborating closely with a Product Designer.</p>
+          </div>
+          <div class="overview-card">
+            <div class="subsection-heading">Project</div>
+            <p class="case-body" style="margin:0">Use user-centered design thinking to develop instructional and informative AI guidance for not only executives, but the entire UX department.</p>
+          </div>
+          <div class="overview-card">
+            <div class="subsection-heading">Problem</div>
+            <p class="case-body" style="margin:0">There was a shift toward AI-first development and the UX executives had no user-centered AI guidance to help grow the business.</p>
+          </div>
+          <div class="overview-card">
+            <div class="subsection-heading">Solution</div>
+            <p class="case-body" style="margin:0">Create tone of voice and prompt design guidance within broader AI guidance to promote consistent and scalable AI content that centers users while creating a foundation that supports business goals.</p>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Learning opportunity</div>
+          <p class="case-body">While I have years of experience growing existing content guidance, this would be my first time putting together guidance from scratch. Therefore, the Product Designer and I invited lots of stakeholder feedback and prepared ourselves for many iterations to ensure the guidance effectively supported its target audience.</p>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING THE READER -->
+      <section class="case-section" id="understanding">
+        <h2 class="section-heading">Understanding the reader</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Starting point</div>
+          <p class="case-body">Although the Product Designer and I were crafting this guidance from scratch, we had a strong foundation to build on. We had both been on the leading AI scrum team and had gained hands-on experience designing AI features and collaborating with engineers across various projects. During these projects, we also collected feedback and questions through our presentations to the Design Review Board and Product Review Board. These insights helped us define our starting place and identify key themes to address in the guidance.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Interviews</div>
+          <p class="case-body">We held interviews with UX executives to understand what they were hoping to learn from this guidance and what they felt would best support the team.</p>
+          <div class="image-row">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_08a0d0307112407391e7ffca133eeb76~mv2.png/v1/fill/w_590,h_340,al_c,q_85,enc_avif,quality_auto/uxexecutives.png" alt="UX Executives interview"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_08c35280a3ff495c9c8d52ad5a1d7676~mv2.png/v1/fill/w_590,h_340,al_c,q_85,enc_avif,quality_auto/openended.png" alt="Open-ended interview questions"/>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Pain points</div>
+          <p class="case-body">Through our experience and interviews with executives, we identified the following pain points designers would have when designing AI features for the first time.</p>
+          <div class="pain-points-grid">
+            <div class="pain-point-card"><img src="https://static.wixstatic.com/media/86619f_a96f4f5e6b2b4705960d33cc57327450~mv2.png/v1/crop/x_0,y_0,w_716,h_1167/fill/w_220,h_358,al_c,q_85,enc_avif,quality_auto/Group%20386.png" alt="Limited AI Knowledge"/></div>
+            <div class="pain-point-card"><img src="https://static.wixstatic.com/media/86619f_f681b8ce791e476d97434c044c7cc901~mv2.png/v1/crop/x_0,y_0,w_716,h_1167/fill/w_220,h_358,al_c,q_85,enc_avif,quality_auto/Group%20387.png" alt="Limited Coding Knowledge"/></div>
+            <div class="pain-point-card"><img src="https://static.wixstatic.com/media/86619f_95591062ffb74b6fac4ce8776bc6b3dd~mv2.png/v1/crop/x_0,y_0,w_716,h_1167/fill/w_220,h_358,al_c,q_85,enc_avif,quality_auto/Group%20388.png" alt="Unfamiliar With Prompt Design"/></div>
+            <div class="pain-point-card"><img src="https://static.wixstatic.com/media/86619f_cf4baec99e5e4da1b2431f3d57237f98~mv2.png/v1/crop/x_0,y_0,w_716,h_1167/fill/w_220,h_358,al_c,q_85,enc_avif,quality_auto/4.png" alt="Maintaining Brand Voice"/></div>
+            <div class="pain-point-card"><img src="https://static.wixstatic.com/media/86619f_0678eb41f66449b5bac943307f15f63a~mv2.png/v1/crop/x_0,y_0,w_716,h_1167/fill/w_220,h_358,al_c,q_85,enc_avif,quality_auto/Group%20390.png" alt="No AI Branding Knowledge"/></div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Constraints</div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_34b2edfc79d346e5bdd221babafbcc59~mv2.png/v1/fill/w_620,h_320,al_c,q_85,enc_avif,quality_auto/timelimit.png" alt="Time constraint" style="max-width:500px"/>
+        </div>
+      </section>
+
+      <!-- SIMPLIFYING AND CONNECTING -->
+      <section class="case-section" id="simplifying">
+        <h2 class="section-heading">Simplifying and connecting</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Analogy</div>
+          <p class="case-body">Writing for designers with a foundational understanding, I opened the content guidance with a conversational tone and an analogy to frame prompt design in a familiar, approachable way.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_725c3239e58c4cd8862fc52aa9b36ccc~mv2.png/v1/fill/w_1160,h_594,al_c,q_85,enc_avif,quality_auto/86619f_725c3239e58c4cd8862fc52aa9b36ccc~mv2.png" alt="Analogy example"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Soft coding vs. hard coding</div>
+          <p class="case-body">Then, I explained the difference between AI-generated content written with prompts versus human-written content, and provided examples to illustrate the distinction.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_6f5952eb53534b27bc1efcb254261aee~mv2.png/v1/fill/w_1160,h_800,al_c,q_85,enc_avif,quality_auto/IMG_2240_PNG.png" alt="Soft coding vs. hard coding"/>
+        </div>
+      </section>
+
+      <!-- ESTABLISHING RULES -->
+      <section class="case-section" id="rules">
+        <h2 class="section-heading">Establishing rules</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Bridging the gap</div>
+          <p class="case-body">While some designers had computer science backgrounds, others had never touched backend code before. So, I wanted to frame the best practices in a way that helped bridge that gap and emphasize the need for precise instructions when working with large language models (LLMs).</p>
+          <p class="case-body">I also provided a set of tone of voice base prompts to use across all AI features, helping to keep a consistent and cohesive voice throughout the product.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5bafda645ad64fd59a55f9966e6f6fdb~mv2.png/v1/fill/w_1160,h_1144,al_c,q_85,enc_avif,quality_auto/IMG_2233_PNG.png" alt="Best practices guidance"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5e03dbe3489c4cfda320d4b41849fc58~mv2.png/v1/crop/x_0,y_0,w_1576,h_626/fill/w_1160,h_440,al_c,q_85,enc_avif,quality_auto/IMG_2232_PNG.png" alt="Tone of voice prompts"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Engineering collaboration</div>
+          <p class="case-body">I also worked with the engineers on my scrum team to develop a set of guidelines and questions to facilitate efficient communication and collaboration between UX and engineers when prompt designing as a team.</p>
+        </div>
+      </section>
+
+      <!-- EMBEDDING AI -->
+      <section class="case-section" id="embedding">
+        <h2 class="section-heading">Embedding AI</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Integration</div>
+          <p class="case-body">It is important to strike a balance between highlighting new AI features and not interrupting the existing and familiar user experience. So, I explained how to use point of view to emphasize or blend AI features into the existing interface, depending on the objective. I worked closely with the Product Designer to ensure we also had guidance on how this coincides with design patterns and components.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5bdb38c6b2294792b09803461d7e075a~mv2.png/v1/fill/w_1160,h_664,al_c,q_85,enc_avif,quality_auto/IMG_2234_PNG.png" alt="AI integration guidance"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_0fbd89a0be3a44b292f11b27f1e93b1c~mv2.png/v1/fill/w_1160,h_610,al_c,q_85,enc_avif,quality_auto/pointofview.png" alt="Point of view guidance"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Marketing collaboration</div>
+          <p class="case-body">Additionally, I collaborated with Product Marketing to create in-app, brand-specific guidance and crafted guidance for how designers should work with Product Marketing to ensure a unified voice and cohesive brand identity around AI.</p>
+        </div>
+      </section>
+
+      <!-- THINKING GLOBALLY -->
+      <section class="case-section" id="global">
+        <h2 class="section-heading">Thinking globally</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Nuance</div>
+          <p class="case-body">I encouraged the designers to think about nuance too, since there would be infinite edge cases and cultural variations in the designs.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_33ad19de96c34fc0b8721bebad50dda3~mv2.png/v1/crop/x_25,y_309,w_1471,h_482/fill/w_1118,h_342,al_c,q_85,enc_avif,quality_auto/IMG_2237_PNG.png" alt="Cultural nuance guidance"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_010c3c3590284053befe0ba44030f18f~mv2.png/v1/fill/w_1118,h_216,al_c,q_85,enc_avif,quality_auto/IMG_2238_PNG.png" alt="Global considerations"/>
+        </div>
+      </section>
+
+      <!-- REVIEWING AND ITERATING -->
+      <section class="case-section" id="reviewing">
+        <h2 class="section-heading">Reviewing and iterating</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Comprehensive guidance</div>
+          <p class="case-body">The Product Designer and I combined our AI guidance and strategically organized it into 10 sections to help readers seamlessly navigate and absorb the information.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Presentations</div>
+          <p class="case-body">We presented this guidance to the Design Review Board and expanded on certain areas within the guidance where feedback suggested confusion or need for additional guidance. After this iteration, the Product Designer and I did a 3-hour presentation over the course of 2 days to the broader UX team and executives. We noted their questions and feedback to iterate on the guidance.</p>
+        </div>
+      </section>
+
+      <!-- NEXT STEPS -->
+      <section class="case-section" id="next-steps">
+        <h2 class="section-heading">Next steps</h2>
+
+        <ul class="steps-list">
+          <li><span class="step-dot"></span><span>Set up 4 hours of weekly AI Content Office Hours to monitor for recurring questions or themes that might need to be added to the guidance.</span></li>
+          <li><span class="step-dot"></span><span>Joined the Design Review Board as a board member to provide prompt design guidance and monitor for gaps in AI knowledge in the team.</span></li>
+          <li><span class="step-dot"></span><span>Plan to send out a survey to figure out where people are struggling, and will continue to send out surveys as needed.</span></li>
+          <li><span class="step-dot"></span><span>Continue to grow the AI Guidance from additional feedback.</span></li>
+        </ul>
+      </section>
+
+      <!-- CONCLUSION -->
+      <section class="case-section" id="conclusion">
+        <h2 class="section-heading">Conclusion</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Results</div>
+          <div class="results-grid">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_aac26d56c76646419048a39fd15f3543~mv2.png/v1/fill/w_600,h_222,al_c,q_85,enc_avif,quality_auto/86619f_aac26d56c76646419048a39fd15f3543~mv2.png" alt="Result 1"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_227f8313bfe8469c83d31c8e8a790294~mv2.png/v1/fill/w_600,h_222,al_c,q_85,enc_avif,quality_auto/Bresults2.png" alt="Result 2"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_08aa226669264123920c09425d82ac3f~mv2.png/v1/fill/w_600,h_222,al_c,q_85,enc_avif,quality_auto/86619f_08aa226669264123920c09425d82ac3f~mv2.png" alt="Result 3"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_a6a69a3236724e4a9e0f57f1dd0724fb~mv2.png/v1/fill/w_600,h_222,al_c,q_85,enc_avif,quality_auto/86619f_a6a69a3236724e4a9e0f57f1dd0724fb~mv2.png" alt="Result 4"/>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Takeaways</div>
+          <div class="takeaway-box">
+            <p>AI might be changing parts of the content design process, but at the core, centering users and collaborating efficiently within a team are essential human skills that will continue to co-exist alongside AI. I am glad this content could serve as an introduction to AI design for so many, and I look forward to continuing to support my team as we adapt to an AI-first model.</p>
+          </div>
+        </div>
+
+        <a href="index.html#portfolio" class="back-link" style="margin-top:3rem;display:inline-flex;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          Back to portfolio
+        </a>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 Ramsey Gunter</span>
+  </footer>
+
+  <!-- Custom cursor: bow & arrow with periwinkle flowers -->
+  <script>
+  (function() {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+      <line x1="4" y1="4" x2="36" y2="36" stroke="#5558A8" stroke-width="1.8" stroke-linecap="round"/>
+      <polygon points="4,4 12,6 6,12" fill="#5558A8"/>
+      <polygon points="36,36 40,30 34,40" fill="#7B82C9" opacity="0.85"/>
+      <polygon points="36,36 30,40 40,34" fill="#A0A6DB" opacity="0.85"/>
+      <path d="M 10 40 Q 1 1 40 10" fill="none" stroke="#7B82C9" stroke-width="2.8" stroke-linecap="round"/>
+      <line x1="10" y1="40" x2="36" y2="36" stroke="#A0A6DB" stroke-width="1"/>
+      <line x1="40" y1="10" x2="36" y2="36" stroke="#A0A6DB" stroke-width="1"/>
+      <g transform="translate(12,37) rotate(-45)">
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="2.2" fill="#FAF7F2"/>
+      </g>
+      <g transform="translate(5,20) rotate(-45)">
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="2" fill="#FAF7F2"/>
+      </g>
+      <g transform="translate(37,12) rotate(-45)">
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="1.8" fill="#FAF7F2"/>
+      </g>
+      <path d="M 7 29 C 5 26 9 24 8 21" fill="none" stroke="#7B82C9" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+      <path d="M 8 21 C 10 20 9 17 11 16" fill="none" stroke="#7B82C9" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    </svg>`;
+    const url = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    const style = document.createElement('style');
+    style.textContent = `*, *::before, *::after { cursor: url("${url}") 4 4, auto !important; }`;
+    document.head.appendChild(style);
+  })();
+  </script>
+
+  <script>
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') html.classList.add('dark');
+    toggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.case-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sidebarLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
