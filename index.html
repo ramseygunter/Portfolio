@@ -86,13 +86,21 @@
       transition: background 0.3s, border-color 0.3s;
     }
 
-    .nav-logo {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      color: var(--text-main);
+    /* mobile-only brand; hidden on desktop */
+    .nav-brand {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
       text-decoration: none;
-      letter-spacing: 0.01em;
+      white-space: nowrap;
+      line-height: 1;
     }
+    .nav-brand:hover { color: var(--terracotta); }
 
     .nav-links {
       list-style: none;
@@ -116,10 +124,19 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.2s;
+      white-space: nowrap;
     }
 
     .nav-links a:hover { color: var(--terracotta); }
     .nav-home { display: inline-flex; align-items: center; gap: 4px; line-height: 1; }
+
+    .nav-right {
+      position: absolute;
+      right: 5vw;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
 
     /* ── THEME TOGGLE ── */
     .theme-toggle {
@@ -146,6 +163,21 @@
     .icon-sun  { display: none;  }
     html.dark .icon-moon { display: none;  }
     html.dark .icon-sun  { display: block; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger:hover { border-color: var(--terracotta); color: var(--terracotta); }
 
     /* ── HERO ── */
     #home {
@@ -402,118 +434,76 @@
 
     /* ── PORTFOLIO ── */
     #portfolio { text-align: center; }
-    #portfolio .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-areas:
-        "a b b"
-        "c c d";
-      gap: 1.5rem;
-      margin-top: 3rem;
+
+    /* ── PROJECT ROWS ── */
+    .project-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 2rem;
       text-align: left;
     }
 
-    #portfolio .portfolio-grid .project-card:nth-child(1) { grid-area: a; }
-    #portfolio .portfolio-grid .project-card:nth-child(2) { grid-area: b; }
-    #portfolio .portfolio-grid .project-card:nth-child(3) { grid-area: c; }
-    #portfolio .portfolio-grid .project-card:nth-child(4) { grid-area: d; }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
       border-radius: 1.5rem;
-      min-height: 260px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
+      overflow: hidden;
+      background: var(--card-bg);
+      box-shadow: 0 4px 24px rgba(30,26,23,0.07);
+      transition: transform 0.25s, box-shadow 0.25s;
     }
-
-    .project-card:hover {
+    .project-row:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(30,26,23,0.15);
+      box-shadow: 0 20px 50px rgba(30,26,23,0.13);
     }
+    .project-row.reverse { direction: rtl; }
+    .project-row.reverse > * { direction: ltr; }
 
-    .project-card.featured {
-      min-height: 320px;
+    .project-row-img {
+      aspect-ratio: 16/9;
+      background: var(--bg-secondary);
+      overflow: hidden;
     }
-
-    .project-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .project-img img {
-      width: 100%;
-      height: 100%;
+    .project-row-img img {
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .project-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+    .project-row-info {
       padding: 1.75rem 2rem;
-      background: var(--card-bg);
-      transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 0 0 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.75rem;
     }
-
-    .project-card:hover .project-info,
-    .project-card.tapped .project-info {
-      transform: translateY(0);
-    }
-
-    .project-card.featured .project-info {
-      padding: 1.75rem 2rem;
-    }
-
-    .project-type {
+    .project-row-info .project-type {
       font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 0.75rem;
+      color: var(--periwinkle);
     }
-
-    .project-info h3 {
+    .project-row-info h3 {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       color: var(--text-main);
-      margin-bottom: 0.75rem;
-      line-height: 1.3;
+      margin: 0;
     }
-
-    .project-card.featured .project-info h3 {
-      font-size: 1.8rem;
-    }
-
-    .project-desc {
-      font-size: 0.9rem;
+    .project-row-info p {
+      font-size: 0.95rem;
       color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
+      line-height: 1.65;
+      margin: 0;
     }
 
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .project-tag {
-      font-size: 0.72rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: var(--border);
-      color: var(--text-muted);
-      font-weight: 500;
+    @media (max-width: 600px) {
+      .project-row { grid-template-columns: 1fr; direction: ltr; }
+      .project-row.reverse { direction: ltr; }
+      .project-row-img { aspect-ratio: 16/9; }
+      .project-row-info { padding: 1.5rem; }
     }
 
     /* ── CONTACT ── */
@@ -595,17 +585,32 @@
 
       .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
 
-      #portfolio .portfolio-grid { grid-template-columns: 1fr; grid-template-areas: "a" "b" "c" "d"; grid-template-rows: auto; }
-      .project-card.featured { grid-template-columns: 1fr; }
-      #portfolio .portfolio-grid .project-card:nth-child(2) .project-img { min-height: 220px; }
       .project-card.featured { grid-column: span 1; display: block; }
       .project-card.featured .project-img { height: 220px; }
     }
 
     @media (max-width: 600px) {
-      nav { padding: 1rem 5vw; }
-      .nav-links { gap: 1.5rem; }
-      .nav-links a { font-size: 0.72rem; }
+      nav { padding: 1rem 5vw; justify-content: space-between; }
+      .nav-brand { display: inline-flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--nav-border);
+        padding: 0.5rem 5vw 1rem;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links .nav-ramsey { display: none; } /* Ramsey shown via nav-brand instead */
+      .nav-links a { display: block; padding: 0.65rem 0; font-size: 0.8rem; }
+      .nav-right { position: static; }
+      .hamburger { display: flex; }
       .about-stats { grid-template-columns: 1fr 1fr; }
     }
 
@@ -630,34 +635,36 @@
 
   <!-- NAV -->
   <nav>
-    <ul class="nav-links">
-      <li><a href="#home" class="nav-home">Ramsey <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;"><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/><circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/></svg></a></li>
+    <!-- mobile-only brand -->
+    <a href="#home" class="nav-brand">Ramsey <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;"><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/><circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/></svg></a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-ramsey"><a href="#home" class="nav-home">Ramsey <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;"><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/><ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/><circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/></svg></a></li>
       <li><a href="#about">About Me</a></li>
       <li><a href="#portfolio">My Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="position:absolute;right:5vw;">
-      <!-- Mystical Moon: slender crescent with stars inside its curve, visible in light mode -->
-      <svg class="icon-moon" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(-45deg)">
-        <!-- Crescent (outer center 20,22 r=16; inner center 29,22 r=14; thinner) -->
-        <path d="M27.83 8.05 A16 16 0 1 0 27.83 35.95 A14 14 0 0 1 27.83 8.05 Z" fill="currentColor"/>
-        <!-- Large 5-pointed star inside the hollow -->
-        <path d="M31,21 L32.18,24.38 L35.76,24.46 L32.90,26.62 L33.94,30.05 L31,28 L28.06,30.05 L29.10,26.62 L26.24,24.46 L29.82,24.38 Z" fill="currentColor"/>
-        <!-- Medium 5-pointed star outside curve -->
-        <path d="M37,12.5 L37.82,14.87 L40.33,14.92 L38.33,16.43 L39.06,18.83 L37,17.4 L34.94,18.83 L35.67,16.43 L33.67,14.92 L36.18,14.87 Z" fill="currentColor"/>
-        <!-- Smaller 5-pointed star to the right of both -->
-        <path d="M41,21.5 L41.59,23.19 L43.38,23.23 L41.95,24.31 L42.47,26.02 L41,26.5 L39.53,26.02 L40.05,24.31 L38.62,23.23 L40.41,23.19 Z" fill="currentColor" opacity="0.75"/>
-      </svg>
-      <!-- Mystical Sun: dense spiky starburst with solid center disk, visible in dark mode -->
-      <svg class="icon-sun" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-        <!-- 20-point starburst (10 long r=19, 10 short r=12, valleys r=8, center 22,22) -->
-        <path d="M22,3 L23.4,13.5 L26.2,10.2 L25.8,15.2 L33.5,9.3 L28.5,17.2 L32.7,16 L29.3,19.5 L40.2,18.5 L30.4,22 L40.2,25.5 L29.3,24.5 L32.7,28 L28.5,26.8 L33.5,34.7 L25.8,28.8 L26.2,33.8 L23.4,30.5 L22,41 L20.6,30.5 L17.8,33.8 L18.2,28.8 L10.5,34.7 L15.5,26.8 L11.3,28 L14.7,24.5 L3.8,25.5 L13.6,22 L3.8,18.5 L14.7,19.5 L11.3,16 L15.5,17.2 L10.5,9.3 L18.2,15.2 L17.8,10.2 L20.6,13.5 Z" fill="currentColor"/>
-        <!-- Halo gap ring -->
-        <circle cx="22" cy="22" r="9.5" fill="var(--bg-primary)"/>
-        <!-- Center filled disk, clean -->
-        <circle cx="22" cy="22" r="8" fill="currentColor"/>
-      </svg>
-    </button>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon-moon" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(-45deg)">
+          <path d="M27.83 8.05 A16 16 0 1 0 27.83 35.95 A14 14 0 0 1 27.83 8.05 Z" fill="currentColor"/>
+          <path d="M31,21 L32.18,24.38 L35.76,24.46 L32.90,26.62 L33.94,30.05 L31,28 L28.06,30.05 L29.10,26.62 L26.24,24.46 L29.82,24.38 Z" fill="currentColor"/>
+          <path d="M37,12.5 L37.82,14.87 L40.33,14.92 L38.33,16.43 L39.06,18.83 L37,17.4 L34.94,18.83 L35.67,16.43 L33.67,14.92 L36.18,14.87 Z" fill="currentColor"/>
+          <path d="M41,21.5 L41.59,23.19 L43.38,23.23 L41.95,24.31 L42.47,26.02 L41,26.5 L39.53,26.02 L40.05,24.31 L38.62,23.23 L40.41,23.19 Z" fill="currentColor" opacity="0.75"/>
+        </svg>
+        <svg class="icon-sun" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22,3 L23.4,13.5 L26.2,10.2 L25.8,15.2 L33.5,9.3 L28.5,17.2 L32.7,16 L29.3,19.5 L40.2,18.5 L30.4,22 L40.2,25.5 L29.3,24.5 L32.7,28 L28.5,26.8 L33.5,34.7 L25.8,28.8 L26.2,33.8 L23.4,30.5 L22,41 L20.6,30.5 L17.8,33.8 L18.2,28.8 L10.5,34.7 L15.5,26.8 L11.3,28 L14.7,24.5 L3.8,25.5 L13.6,22 L3.8,18.5 L14.7,19.5 L11.3,16 L15.5,17.2 L10.5,9.3 L18.2,15.2 L17.8,10.2 L20.6,13.5 Z" fill="currentColor"/>
+          <circle cx="22" cy="22" r="9.5" fill="var(--bg-primary)"/>
+          <circle cx="22" cy="22" r="8" fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -667,8 +674,7 @@
     <div class="hero-text">
       <div class="section-label">UX Designer & Content Designer</div>
       <h1><span id="greeting">Hi</span><br />I'm <em>Ramsey</em>.</h1>
-      <p class="hero-tagline">Combining data-driven design with cultural psychology to craft innovative, human-centered experiences.</p>
-      <div class="hero-badges">
+<div class="hero-badges">
         <span class="badge">Content Strategy</span>
         <span class="badge">UX Writing</span>
         <span class="badge">Conversation Design</span>
@@ -697,7 +703,7 @@
         <div class="section-label">About Me</div>
         <h2 class="section-title">Designing with empathy &amp; a global lens</h2>
         <p class="section-body">
-          As a UX Designer and Writer with a background in computer science and international studies, I enjoy combining design expertise with cultural psychology to craft innovative, holistic user-centered experiences. My love for problem-solving and enthusiasm for learning keeps me curious and optimistic in all aspects of life.
+          As a UX Designer and Writer with a background in computer science and international studies, I enjoy combining data-driven design with cultural psychology to craft innovative and unique, human-centered experiences. My love for problem-solving and enthusiasm for learning keeps me curious and optimistic in all aspects of life.
         </p>
         <p class="section-body" style="margin-top:1rem;">
           When I'm not designing, you'll find me exploring the world, studying languages, and practicing mounted archery.
@@ -724,69 +730,68 @@
     <div class="section-label">My Work</div>
     <h2 class="section-title">Portfolio</h2>
 
-    <div class="portfolio-grid">
+    <div class="project-rows">
 
-      <!-- Featured -->
-      <div class="project-card" onclick="window.location='buildium-ai.html'" style="cursor:pointer">
-        <div class="project-img">
-          <img
-            src="https://static.wixstatic.com/media/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png/v1/fill/w_640,h_904,q_90,enc_avif,quality_auto/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png"
-            alt="Buildium AI Case Study"
-          />
+      <!-- Buildium AI: image | description -->
+      <div class="project-row" onclick="window.location='buildium-ai.html'" style="cursor:pointer">
+        <div class="project-row-img">
+          <img src="https://static.wixstatic.com/media/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png/v1/fill/w_640,h_904,q_90,enc_avif,quality_auto/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png" alt="Buildium AI"/>
         </div>
-        <div class="project-info">
+        <div class="project-row-info">
           <div class="project-type">Prompt Engineering · Conversation Design · SaaS</div>
           <h3>Buildium AI</h3>
-          <p class="project-desc">Creating prompt engineering guidance for AI-first products.</p>
+          <p>Creating prompt engineering guidance for AI-first products.</p>
         </div>
       </div>
 
-      <!-- Waldo -->
-      <div class="project-card featured">
-        <div class="project-img">
-          <img
-            src="https://static.wixstatic.com/media/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png"
-            alt="Waldo Case Study"
-          />
+      <!-- Waldo: description | image -->
+      <div class="project-row reverse">
+        <div class="project-row-img">
+          <img src="https://static.wixstatic.com/media/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png" alt="Waldo"/>
         </div>
-        <div class="project-info">
+        <div class="project-row-info">
           <div class="project-type">UX Writing · E-Commerce</div>
           <h3>Waldo</h3>
-          <p class="project-desc">A cancellation survey on an e-commerce website for people who want to cancel their contact lens subscription.</p>
+          <p>A cancellation survey on an e-commerce website for people who want to cancel their contact lens subscription.</p>
         </div>
       </div>
 
-      <!-- Onfleek -->
-      <div class="project-card featured">
-        <div class="project-img">
-          <img
-            src="https://static.wixstatic.com/media/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png"
-            alt="Onfleek Travel & Beyond Case Study"
-          />
+      <!-- Onfleek: image | description -->
+      <div class="project-row">
+        <div class="project-row-img">
+          <img src="https://static.wixstatic.com/media/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png" alt="OnFleek Travel & Beyond"/>
         </div>
-        <div class="project-info">
+        <div class="project-row-info">
           <div class="project-type">Content Writing · Localization</div>
           <h3>OnFleek Travel & Beyond</h3>
-          <p class="project-desc">Connecting study abroad students with a startup travel company that offers educational, yet fun, weekend trips in Portugal.</p>
+          <p>Connecting study abroad students with a startup travel company that offers educational, yet fun, weekend trips in Portugal.</p>
         </div>
       </div>
 
-      <!-- Charvick -->
-      <div class="project-card">
-        <div class="project-img">
-          <img
-            src="https://static.wixstatic.com/media/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png/v1/fill/w_320,h_452,q_90,enc_avif,quality_auto/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png"
-            alt="Charvick Farm Case Study"
-          />
+      <!-- Charvick: description | image -->
+      <div class="project-row reverse">
+        <div class="project-row-img">
+          <img src="https://static.wixstatic.com/media/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png/v1/fill/w_320,h_452,q_90,enc_avif,quality_auto/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png" alt="Charvick Farm"/>
         </div>
-        <div class="project-info">
+        <div class="project-row-info">
           <div class="project-type">UX Design · Branding</div>
           <h3>Charvick Farm</h3>
-          <p class="project-desc">A responsive e-commerce website for a small business specializing in selling ethically harvested wood products and unique rustic items.</p>
+          <p>A responsive e-commerce website for a small business specializing in selling ethically harvested wood products and unique rustic items.</p>
+        </div>
+      </div>
+
+      <!-- Placeholder: image | description -->
+      <div class="project-row">
+        <div class="project-row-img"></div>
+        <div class="project-row-info">
+          <div class="project-type">Coming Soon</div>
+          <h3>Project Title</h3>
+          <p>Description coming soon.</p>
         </div>
       </div>
 
     </div>
+
   </section>
 
   <!-- CONTACT -->
@@ -819,6 +824,12 @@
   </footer>
 
   <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
     const toggle = document.getElementById('themeToggle');
     const html = document.documentElement;
 
@@ -914,24 +925,6 @@
   })();
   </script>
 
-  <!-- Project card tap-to-reveal on touch devices -->
-  <script>
-    (function() {
-      const cards = document.querySelectorAll('.project-card');
-      cards.forEach(card => {
-        card.addEventListener('click', function(e) {
-          // Only activate tap behaviour on touch/no-hover devices
-          if (!window.matchMedia('(hover: hover)').matches) {
-            const isOpen = this.classList.contains('tapped');
-            // Close any other open cards
-            cards.forEach(c => c.classList.remove('tapped'));
-            if (!isOpen) this.classList.add('tapped');
-            e.preventDefault();
-          }
-        });
-      });
-    })();
-  </script>
 
   <!-- Custom cursor: bow & arrow with periwinkle flowers -->
   <script>
