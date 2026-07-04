@@ -69,6 +69,7 @@
       font-size: 16px;
       line-height: 1.6;
       transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
     }
 
     /* ── NAV ── */
@@ -136,6 +137,27 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+    }
+
+    /* ── TARGET BUTTON ── */
+    .target-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .target-btn:hover {
+      border-color: #7B82C9;
+      color: #7B82C9;
     }
 
     /* ── THEME TOGGLE ── */
@@ -369,7 +391,10 @@
 
     .about-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
       gap: 1.5rem;
       margin-top: 3rem;
     }
@@ -451,28 +476,29 @@
       gap: 2rem;
       margin-top: 2rem;
       text-align: left;
+      padding: 0 2rem;
     }
 
     .project-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      border-radius: 1.5rem;
+      border-radius: 16px;
       overflow: hidden;
       background: var(--card-bg);
-      box-shadow: 0 4px 24px rgba(30,26,23,0.07);
+      box-shadow: 0 4px 18px rgba(30,26,23,0.09);
       transition: transform 0.25s, box-shadow 0.25s;
     }
     .project-row:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(30,26,23,0.13);
+      box-shadow: 0 18px 44px rgba(30,26,23,0.16);
     }
     .project-row.reverse { direction: rtl; }
     .project-row.reverse > * { direction: ltr; }
 
     .project-row-img {
       aspect-ratio: 16/9;
-      background: var(--bg-secondary);
+      background: #7B82C9;
       overflow: hidden;
     }
     .project-row-img img {
@@ -482,18 +508,22 @@
     }
 
     .project-row-info {
-      padding: 1.75rem 2rem;
+      padding: 1.75rem 3rem 1.75rem 2.5rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 0.75rem;
+      background: var(--card-bg);
+    }
+    .project-row.reverse .project-row-info {
+      padding: 1.75rem 2.5rem 1.75rem 3rem;
     }
     .project-row-info .project-type {
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--periwinkle);
+      color: var(--terracotta);
     }
     .project-row-info h3 {
       font-family: var(--font-serif);
@@ -509,10 +539,16 @@
     }
 
     @media (max-width: 600px) {
-      .project-row { grid-template-columns: 1fr; direction: ltr; }
+      .project-rows { padding: 0; }
+      .project-row {
+        grid-template-columns: 1fr;
+        direction: ltr;
+        clip-path: none;
+      }
       .project-row.reverse { direction: ltr; }
       .project-row-img { aspect-ratio: 16/9; }
-      .project-row-info { padding: 1.5rem; }
+      .project-row-info,
+      .project-row.reverse .project-row-info { padding: 1.5rem; }
     }
 
     /* ── CONTACT ── */
@@ -630,13 +666,20 @@
       display: block;
       line-height: 0;
       padding: 0.25rem 0;
-      overflow: visible;
+      overflow: hidden;
       background: var(--bg-secondary);
     }
     .section-divider svg {
       display: block;
       width: 100%;
       height: auto;
+    }
+    @media (max-width: 700px) {
+      .section-divider svg {
+        width: auto;
+        height: 80px;
+        min-width: 100%;
+      }
     }
   </style>
 </head>
@@ -653,6 +696,21 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
+      <a href="bow-cursor.html" class="target-btn" aria-label="Bow cursor demo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <!-- Arrow shaft coming from upper-left, tip at center -->
+          <line x1="3.5" y1="3.5" x2="10.5" y2="10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Arrowhead at center -->
+          <polygon points="12,12 9.2,11.2 11.2,9.2" fill="currentColor"/>
+          <!-- Feather fletching: diagonal barb lines crossing shaft at tail -->
+          <line x1="5.0" y1="2.0" x2="2.0" y2="5.0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="4.3" y1="1.3" x2="1.3" y2="4.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <line x1="3.6" y1="0.6" x2="0.6" y2="3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
         <svg class="icon-moon" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(-45deg)">
           <path d="M27.83 8.05 A16 16 0 1 0 27.83 35.95 A14 14 0 0 1 27.83 8.05 Z" fill="currentColor"/>
@@ -689,6 +747,7 @@
         <span class="badge">Conversation Design</span>
         <span class="badge">Prompt Engineering</span>
         <span class="badge">Localization</span>
+        <span class="badge">Storytelling</span>
       </div>
       <div class="hero-cta">
         <a href="#portfolio" class="btn btn-primary">View My Work</a>
@@ -726,10 +785,7 @@
             <div class="stat-number">2+</div>
             <div class="stat-label">Years of prompt engineering</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-number">3</div>
-            <div class="stat-label">Languages (English, Spanish + more)</div>
-          </div>
+
         </div>
     </div>
   </section>
@@ -747,55 +803,65 @@
           <img src="https://static.wixstatic.com/media/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png/v1/fill/w_640,h_904,q_90,enc_avif,quality_auto/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png" alt="Buildium AI"/>
         </div>
         <div class="project-row-info">
-          <div class="project-type">Prompt Engineering · Conversation Design · SaaS</div>
+          <div class="project-type" style="color: #B8A8D4;">Prompt Engineering · Conversation Design</div>
           <h3>Buildium AI</h3>
-          <p>Creating prompt engineering guidance for AI-first products.</p>
+          <p>Creating prompt engineering guidance for the UX department to design scalable AI-first features.</p>
+        </div>
+      </div>
+
+      <!-- Write with Lumina: description | image -->
+      <div class="project-row reverse">
+        <div class="project-row-img" style="background: #96CDD0;"></div>
+        <div class="project-row-info">
+          <div class="project-type" style="color: #5BAEB0;">Prompt Engineering · UX Writing · Translation</div>
+          <h3>Write with Lumina</h3>
+          <p>An AI writing assistant that gives property managers the ability to draft, revise, and translate communications directly inside Buildium.</p>
+        </div>
+      </div>
+
+      <!-- CLEA: image | description -->
+      <div class="project-row">
+        <div class="project-row-img"></div>
+        <div class="project-row-info">
+          <div class="project-type">Content Strategy · iOS · Medical Device</div>
+          <h3>CLEA</h3>
+          <p>An iOS-based, mobile corneal topographer for medical professionals that can assess dry eye, keratoconus, astigmatism, corneal power, and more.</p>
         </div>
       </div>
 
       <!-- Waldo: description | image -->
-      <div class="project-row reverse">
+      <div class="project-row reverse" onclick="window.location='waldo.html'" style="cursor:pointer">
         <div class="project-row-img">
           <img src="https://static.wixstatic.com/media/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png" alt="Waldo"/>
         </div>
         <div class="project-row-info">
-          <div class="project-type">UX Writing · E-Commerce</div>
+          <div class="project-type" style="color: var(--terracotta-light);">UX Writing · E-Commerce</div>
           <h3>Waldo</h3>
-          <p>A cancellation survey on an e-commerce website for people who want to cancel their contact lens subscription.</p>
+          <p>A cancellation survey on an e-commerce website for Waldo customers who want to cancel their contact lens subscription.</p>
         </div>
       </div>
 
       <!-- Onfleek: image | description -->
-      <div class="project-row">
+      <div class="project-row" onclick="window.location='onfleek.html'" style="cursor:pointer">
         <div class="project-row-img">
           <img src="https://static.wixstatic.com/media/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png" alt="OnFleek Travel & Beyond"/>
         </div>
         <div class="project-row-info">
-          <div class="project-type">Content Writing · Localization</div>
+          <div class="project-type" style="color: #6BBFBF;">Content Writing · Localization · Translation</div>
           <h3>OnFleek Travel & Beyond</h3>
           <p>Connecting study abroad students with a startup travel company that offers educational, yet fun, weekend trips in Portugal.</p>
         </div>
       </div>
 
       <!-- Charvick: description | image -->
-      <div class="project-row reverse">
+      <div class="project-row reverse" onclick="window.location='charvick-farm.html'" style="cursor:pointer">
         <div class="project-row-img">
           <img src="https://static.wixstatic.com/media/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png/v1/fill/w_320,h_452,q_90,enc_avif,quality_auto/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png" alt="Charvick Farm"/>
         </div>
         <div class="project-row-info">
-          <div class="project-type">UX Design · Branding</div>
+          <div class="project-type" style="color: #8A9E7A;">UX Design · Branding</div>
           <h3>Charvick Farm</h3>
           <p>A responsive e-commerce website for a small business specializing in selling ethically harvested wood products and unique rustic items.</p>
-        </div>
-      </div>
-
-      <!-- Placeholder: image | description -->
-      <div class="project-row">
-        <div class="project-row-img"></div>
-        <div class="project-row-info">
-          <div class="project-type">Coming Soon</div>
-          <h3>Project Title</h3>
-          <p>Description coming soon.</p>
         </div>
       </div>
 
@@ -860,6 +926,7 @@
       setTimeout(tick, 600);
     })();
   </script>
+
 
   <script>
     // Hamburger menu
@@ -1000,10 +1067,60 @@
       <path d="M 8 21 C 10 20 9 17 11 16" fill="none" stroke="#7B82C9" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
     </svg>`;
 
-    const url = 'data:image/svg+xml,' + encodeURIComponent(svg);
-    const style = document.createElement('style');
-    style.textContent = `*, *::before, *::after { cursor: url("${url}") 4 4, auto !important; }`;
-    document.head.appendChild(style);
+    // Switch to JS-driven floating cursor so we can animate it on click
+    const noCursor = document.createElement('style');
+    noCursor.textContent = `*, *::before, *::after { cursor: none !important; }`;
+    document.head.appendChild(noCursor);
+
+    const cursorEl = document.createElement('div');
+    cursorEl.style.cssText = `
+      position: fixed; pointer-events: none; z-index: 99999;
+      left: -100px; top: -100px;
+      transform-origin: 4px 4px;
+      will-change: left, top;
+    `;
+    cursorEl.innerHTML = svg;
+    document.body.appendChild(cursorEl);
+
+    document.addEventListener('mousemove', e => {
+      cursorEl.style.left = (e.clientX - 4) + 'px';
+      cursorEl.style.top  = (e.clientY - 4) + 'px';
+    });
+
+    document.addEventListener('click', e => {
+      // Draw-back-and-release: pull toward lower-right (away from shot direction), snap forward, settle
+      cursorEl.animate([
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(7px, 7px)',     offset: 0.18 }, // draw back
+        { transform: 'translate(-4px, -4px)',   offset: 0.32 }, // release — bow hand kicks forward
+        { transform: 'translate(1.5px, 1.5px)', offset: 0.50 },
+        { transform: 'translate(0px, 0px)' },
+      ], { duration: 420, easing: 'ease-out' });
+
+      const x = e.clientX, y = e.clientY;
+
+      // Impact rings at the arrowhead tip (cursor hotspot)
+      [
+        { delay: 0,   color: '#5558A8', maxScale: 3.5 },
+        { delay: 110, color: '#7B82C9', maxScale: 5   },
+        { delay: 220, color: '#A0A6DB', maxScale: 6.5 },
+      ].forEach(({ delay, color, maxScale }) => {
+        const ring = document.createElement('div');
+        ring.style.cssText = `
+          position: fixed; left: ${x}px; top: ${y}px;
+          width: 10px; height: 10px; border-radius: 50%;
+          border: 2px solid ${color};
+          transform: translate(-50%,-50%) scale(0);
+          pointer-events: none; z-index: 9998;
+        `;
+        document.body.appendChild(ring);
+        ring.animate([
+          { transform: 'translate(-50%,-50%) scale(0)', opacity: 1 },
+          { transform: `translate(-50%,-50%) scale(${maxScale})`, opacity: 0 },
+        ], { duration: 550, delay, easing: 'ease-out', fill: 'forwards' });
+        setTimeout(() => ring.remove(), delay + 650);
+      });
+    });
   })();
   </script>
 </body>

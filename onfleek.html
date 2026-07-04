@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Buildium AI — Ramsey Gunter</title>
+  <title>OnFleek Travel & Beyond — Ramsey Gunter</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -30,10 +30,8 @@
       --card-bg: #fff;
       --nav-bg: rgba(250,247,242,0.92);
       --nav-border: var(--sand);
-      --contact-bg: var(--ink);
       --footer-bg: var(--ink);
       --panel-text: #F0EAE2;
-      --contact-text: #C8B9A8;
     }
     html.dark {
       --bg-primary: #18120F;
@@ -44,14 +42,11 @@
       --card-bg: #241C18;
       --nav-bg: rgba(24,18,15,0.92);
       --nav-border: rgba(255,255,255,0.08);
-      --contact-bg: #100D0A;
       --footer-bg: #100D0A;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: var(--font-sans);
       background: var(--bg-primary);
@@ -74,8 +69,6 @@
       border-bottom: 1px solid var(--nav-border);
       transition: background 0.3s, border-color 0.3s;
     }
-
-    /* mobile-only brand; hidden on desktop */
     .nav-brand {
       display: none;
       align-items: center;
@@ -90,7 +83,6 @@
       line-height: 1;
     }
     .nav-brand:hover { color: var(--terracotta); }
-
     .nav-links {
       list-style: none;
       display: flex;
@@ -111,7 +103,6 @@
     }
     .nav-links a:hover { color: var(--terracotta); }
     .nav-home { display: inline-flex; align-items: center; gap: 4px; line-height: 1; }
-
     .nav-right {
       position: absolute;
       right: 5vw;
@@ -119,7 +110,6 @@
       align-items: center;
       gap: 0.6rem;
     }
-
     .theme-toggle {
       background: none;
       border: 1.5px solid var(--border);
@@ -132,7 +122,6 @@
       flex-shrink: 0;
     }
     .theme-toggle:hover { border-color: var(--terracotta); color: var(--terracotta); }
-
     .hamburger {
       display: none;
       background: none;
@@ -146,7 +135,6 @@
       flex-shrink: 0;
     }
     .hamburger:hover { border-color: var(--terracotta); color: var(--terracotta); }
-
     @media (max-width: 600px) {
       nav { padding: 1rem 5vw; justify-content: space-between; }
       .nav-brand { display: inline-flex; }
@@ -187,14 +175,12 @@
       right: 3vw;
       width: 200px;
     }
-
     .sidebar-nav {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 0;
     }
-
     .sidebar-nav a {
       display: block;
       font-size: 0.75rem;
@@ -208,13 +194,11 @@
       line-height: 1.4;
       text-align: left;
     }
-
     .sidebar-nav a:hover,
     .sidebar-nav a.active {
       color: var(--periwinkle);
       border-left-color: var(--periwinkle);
     }
-
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -234,13 +218,11 @@
     /* ── MAIN CONTENT ── */
     .main-content { min-width: 0; }
 
-    /* Hero */
     .case-hero {
       margin-bottom: 4rem;
       padding-bottom: 3rem;
       border-bottom: 1px solid var(--border);
     }
-
     .case-label {
       font-size: 0.72rem;
       font-weight: 400;
@@ -249,7 +231,6 @@
       color: var(--periwinkle);
       margin-bottom: 1rem;
     }
-
     .case-title {
       font-family: var(--font-serif);
       font-size: clamp(2.4rem, 4vw, 3.5rem);
@@ -258,15 +239,11 @@
       color: var(--text-main);
       margin-bottom: 1.5rem;
     }
-    .case-title em { font-style: normal; color: var(--text-main); }
-
     .case-meta {
       display: flex;
-      gap: 3rem;
-      flex-wrap: wrap;
+      gap: 2rem;
+      flex-wrap: nowrap;
     }
-
-    .meta-item { }
     .meta-label {
       font-size: 0.68rem;
       font-weight: 600;
@@ -286,7 +263,6 @@
       margin-bottom: 5rem;
       scroll-margin-top: 100px;
     }
-
     .section-heading {
       font-family: var(--font-serif);
       font-size: 1.9rem;
@@ -296,11 +272,7 @@
       padding-bottom: 1rem;
       border-bottom: 1px solid var(--border);
     }
-
-    .subsection {
-      margin-bottom: 3rem;
-    }
-
+    .subsection { margin-bottom: 3rem; }
     .subsection-heading {
       font-family: var(--font-sans);
       font-size: 0.72rem;
@@ -310,7 +282,6 @@
       color: var(--periwinkle);
       margin-bottom: 1rem;
     }
-
     .case-body {
       font-size: 1rem;
       color: var(--text-muted);
@@ -326,7 +297,6 @@
       gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
-
     .overview-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -334,7 +304,6 @@
       padding: 1.5rem;
       transition: background 0.3s, border-color 0.3s;
     }
-
     .overview-card .subsection-heading { margin-bottom: 0.6rem; }
 
     /* Images */
@@ -345,120 +314,88 @@
       display: block;
       border: 1px solid var(--border);
     }
-
     .image-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin: 1.5rem 0;
     }
-
     .image-row .case-image {
       margin: 0;
       height: 220px;
-      object-fit: contain;
-      border: none;
-      background: var(--card-bg);
+      object-fit: cover;
       border-radius: 1rem;
-      padding: 1rem;
+    }
+    .image-row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .image-row-3 .case-image {
+      margin: 0;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
     }
 
-    .pain-points-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.25rem;
-      margin: calc(1.5rem + 34px) 0 1.5rem;
+    /* Pain points — 4-image grid */
+    .pain-points-img-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
     }
-    .pain-point-card {
+    .pain-points-img-grid .case-image {
+      margin: 0;
+      width: 100%;
+      object-fit: contain;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 0.5rem;
+    }
+
+    /* Persona grid */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .persona-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 1rem;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      flex: 0 0 calc(33.33% - 0.84rem);
-      overflow: visible;
-      position: relative;
+      overflow: hidden;
       transition: background 0.3s, border-color 0.3s;
     }
-    .pain-point-num {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #A0A6DB;
-      display: flex; align-items: center; justify-content: center;
-      position: absolute;
-      top: -24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-      font-family: var(--font-sans);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .pain-point-header {
+    .persona-card img {
       width: 100%;
-      background: #C4C8E8;
-      border-radius: 1rem 1rem 0.75rem 0.75rem;
-      padding: calc(24px + 0.85rem) 1.25rem 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 130px;
-    }
-    .pain-point-title {
-      font-family: var(--font-sans);
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.4;
-    }
-    .pain-point-desc {
-      font-family: var(--font-sans);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      padding: 0.85rem 1.25rem 1.5rem;
-    }
-    @media (max-width: 600px) {
-      .pain-point-card { flex: 0 0 calc(50% - 0.625rem); }
-    }
-
-    .pain-point-card img {
-      width: 100%;
-      height: auto;
       display: block;
+      object-fit: cover;
     }
-
-    /* Next steps list */
-    .steps-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .steps-list li {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      font-size: 1rem;
+    .persona-caption {
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .persona-caption strong {
+      display: block;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
     }
 
-    .step-dot {
-      flex-shrink: 0;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--periwinkle);
-      margin-top: 0.55rem;
+    /* Stat cards */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
     }
-
-    /* Stat card */
     .stat-card {
       background: #F4F4F4;
       border: 1px solid var(--border);
@@ -468,9 +405,7 @@
       display: block;
       transition: background 0.3s, border-color 0.3s;
     }
-    html.dark .stat-card {
-      background: var(--card-bg);
-    }
+    html.dark .stat-card { background: var(--card-bg); }
     .stat-number {
       font-family: var(--font-serif);
       font-size: 2.2rem;
@@ -484,7 +419,96 @@
       font-weight: 500;
     }
 
-    /* Speech bubbles */
+    /* Interview cards */
+    .interview-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: calc(1.5rem + 34px) 0 1.5rem;
+    }
+    .interview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 0 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      overflow: visible;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .interview-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #8AABDB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: -24px;
+      position: relative;
+      z-index: 1;
+    }
+    .interview-icon svg { color: #fff; width: 22px; height: 22px; }
+    .interview-card p {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin: 0;
+      padding: 1rem 0 1.25rem;
+    }
+
+    /* Steps list */
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .steps-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .step-dot {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--periwinkle);
+      margin-top: 0.55rem;
+    }
+
+    /* Content pairing: image + description side by side */
+    .content-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin: 1.5rem 0;
+    }
+    .content-pair .case-image {
+      margin: 0;
+      object-fit: cover;
+      height: 100%;
+      min-height: 180px;
+    }
+    .content-pair .case-image-contain {
+      margin: 0;
+      width: 100%;
+      display: block;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      background: var(--card-bg);
+    }
+
+    /* Quote bubbles */
     .quote-grid {
       display: flex;
       flex-direction: column;
@@ -548,91 +572,6 @@
       letter-spacing: 0.01em;
     }
     .quote-attribution::before { content: '— '; }
-    @media (max-width: 600px) {
-      .quote-grid { grid-template-columns: 1fr; }
-    }
-
-    /* Interview cards */
-    .interview-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin: calc(1.5rem + 34px) 0 1.5rem;
-      align-items: stretch;
-    }
-    .interview-cards .interview-card {
-      min-height: 140px;
-    }
-    .interview-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 1rem;
-      padding: 0 1.25rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0.75rem;
-      overflow: visible;
-      transition: background 0.3s, border-color 0.3s;
-    }
-    .interview-icon {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #A0A6DB;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: -24px;
-      position: relative;
-      z-index: 1;
-    }
-    .interview-icon svg { color: #fff; width: 22px; height: 22px; }
-    .interview-card p {
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      color: var(--text-main);
-      line-height: 1.5;
-      margin: 0;
-    }
-    @media (max-width: 600px) {
-      .interview-cards { grid-template-columns: 1fr; }
-    }
-
-    /* Results grid */
-    .results-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .results-grid .case-image {
-      margin: 0;
-      height: auto;
-      object-fit: unset;
-      border: none;
-    }
-    .results-grid .case-image.full {
-      grid-column: 1 / -1;
-      height: auto;
-    }
-
-    /* Conclusion highlight */
-    .takeaway-box {
-      background: linear-gradient(135deg, rgba(123,130,201,0.08), rgba(160,166,219,0.06));
-      border: 1px solid rgba(123,130,201,0.25);
-      border-radius: 1rem;
-      padding: 2rem;
-      margin-top: 1.5rem;
-    }
-
-    .takeaway-box p {
-      font-family: var(--font-sans);
-      font-size: 1.15rem;
-      font-style: normal;
-      color: var(--text-main);
-      line-height: 1.75;
-    }
 
     /* ── FOOTER ── */
     footer {
@@ -653,17 +592,22 @@
       .page-wrapper { padding-top: 90px; }
       .overview-grid { grid-template-columns: 1fr; }
       .image-row { grid-template-columns: 1fr; }
-      .results-grid { grid-template-columns: 1fr; }
+      .image-row-3 { grid-template-columns: 1fr 1fr; }
+      .persona-grid { grid-template-columns: 1fr; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .pain-points-img-grid { grid-template-columns: repeat(2, 1fr); }
+      .content-pair { grid-template-columns: 1fr; }
+      .interview-cards { grid-template-columns: 1fr; }
     }
 
-    mark.hi { background: rgba(123, 130, 201, 0.32); color: inherit; border-radius: 2px; padding: 0 2px; font-style: inherit; }
+    mark.hi { background: rgb(173, 215, 218); color: inherit; border-radius: 2px; padding: 0 2px; font-style: inherit; }
+    html.dark mark.hi { background: rgba(58, 173, 173, 0.28); }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <!-- mobile-only brand -->
     <a href="index.html" class="nav-brand">Ramsey
       <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;">
         <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/>
@@ -724,13 +668,10 @@
       </a>
       <ul class="sidebar-nav">
         <li><a href="#overview">Project overview</a></li>
-        <li><a href="#understanding">Understanding the reader</a></li>
-        <li><a href="#simplifying">Simplifying and connecting</a></li>
-        <li><a href="#rules">Establishing rules</a></li>
-        <li><a href="#embedding">Embedding AI</a></li>
-        <li><a href="#global">Thinking globally</a></li>
-        <li><a href="#reviewing">Reviewing and iterating</a></li>
-        <li><a href="#next-steps">Next steps</a></li>
+        <li><a href="#understanding">Understanding the user</a></li>
+        <li><a href="#inspiration">Finding inspiration</a></li>
+        <li><a href="#experience">Designing the experience</a></li>
+        <li><a href="#content">Designing the content</a></li>
         <li><a href="#conclusion">Conclusion</a></li>
       </ul>
     </aside>
@@ -740,17 +681,18 @@
 
       <!-- HERO -->
       <header class="case-hero">
-        <div class="case-label"><strong>Case Study</strong> · Prompt Engineering · Conversation Design</div>
-        <h1 class="case-title"><em>Buildium</em> AI</h1>
+        <div class="case-label"><strong>Case Study</strong> · Content Writing · Localization</div>
+        <h1 class="case-title">OnFleek Travel & Beyond</h1>
         <img
-          src="https://static.wixstatic.com/media/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png/v1/fill/w_640,h_904,q_90,enc_avif,quality_auto/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png"
-          alt="Buildium AI"
-          style="width:100%;max-height:380px;object-fit:cover;border-radius:1rem;margin:1.5rem 0;display:block;border:1px solid var(--border);"
+          class="case-image"
+          src="https://static.wixstatic.com/media/86619f_24326984e10d47888973a92d23f68ed1~mv2.png"
+          alt="OnFleek Travel & Beyond banner"
+          style="margin-top: 2rem; border-radius: 1rem; max-width: 100%; border: none; max-height: 380px; object-fit: cover;"
         />
-        <div class="case-meta">
+        <div class="case-meta" style="margin-top: 2rem;">
           <div class="meta-item">
             <div class="meta-label">Role</div>
-            <div class="meta-value">Content Designer</div>
+            <div class="meta-value">UX Content Writer</div>
           </div>
           <div class="meta-item">
             <div class="meta-label">Duration</div>
@@ -758,7 +700,7 @@
           </div>
           <div class="meta-item">
             <div class="meta-label">Team</div>
-            <div class="meta-value">Product Designer</div>
+            <div class="meta-value">Business Development Manager · Marketing Manager · Chief Operating Officer</div>
           </div>
         </div>
       </header>
@@ -770,216 +712,197 @@
         <div class="overview-grid">
           <div class="overview-card">
             <div class="subsection-heading">Brief</div>
-            <p class="case-body" style="margin:0">Buildium is a cloud-based property management software company that recently implemented an AI-first roadmap and needs scalable AI design guidance for its <mark class="hi">international UX team</mark>. As the Content Designer, I <mark class="hi">developed the tone of voice and system prompt engineering guidance</mark> while collaborating closely with a Product Designer.</p>
+            <p class="case-body" style="margin:0">OnFleek Travel & Beyond is a startup company based in Seville, Spain. They offer trips throughout Spain, Portugal, and Morocco and are looking to expand their target audience to English-speaking study-abroad students currently living in Europe. My role as UX Content Writer was to empathize with the target audience to help <mark class="hi">design this trip</mark> to students' preferences and <mark class="hi">create content</mark> to bring attention to the company's unique opportunities.</p>
           </div>
           <div class="overview-card">
             <div class="subsection-heading">Project</div>
-            <p class="case-body" style="margin:0">Use user-centered design thinking to develop <mark class="hi">instructional and informative AI guidance</mark> for not only executives, but the entire UX department.</p>
+            <p class="case-body" style="margin:0">I used user-centered design thinking to design a trip that reflected study abroad students' needs, wants, and desires. Once the trip was designed, the <mark class="hi">trip description</mark> would be embellished with a <mark class="hi">friendly, upbeat, and casual voice</mark> to be cohesive with the OnFleek brand while still providing <mark class="hi">informative</mark> details and some of the <mark class="hi">historical aspects</mark> of the cities visited.</p>
           </div>
           <div class="overview-card">
             <div class="subsection-heading">Problem</div>
-            <p class="case-body" style="margin:0">There was a shift toward AI-first development and the UX executives had no user-centered AI guidance to help grow the business.</p>
+            <p class="case-body" style="margin:0">Study-abroad students living in Europe want to improve their language skills and cultural knowledge while doing fun activities to enhance their overall study-abroad experience.</p>
           </div>
           <div class="overview-card">
             <div class="subsection-heading">Solution</div>
-            <p class="case-body" style="margin:0">Create tone of voice and prompt design guidance within broader AI guidance to promote consistent and scalable AI content that centers users while creating a foundation that supports business goals.</p>
+            <p class="case-body" style="margin:0">Create and market an educational yet fun weekend trip to Lisbon, Sintra, and Cascais, allowing students to enhance their study abroad experience and enrich their studies.</p>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-heading">Learning opportunity</div>
-          <p class="case-body">While I have years of experience growing existing content guidance, this would be my first time putting together <mark class="hi">guidance from scratch</mark>. Therefore, the Product Designer and I invited lots of stakeholder feedback and prepared ourselves for <mark class="hi">many iterations</mark> to ensure the guidance effectively supported its target audience.</p>
+          <p class="case-body">Given that I was the only native English speaker on the team, I was responsible for <mark class="hi">user research</mark> and <mark class="hi">content writing</mark>. Not only was this my first time leading a design project, but it was also my first time working with a team solely in my second language, Spanish. Therefore, I prepared myself to <mark class="hi">translate my findings</mark> and design ideas into Spanish to best communicate with my team.</p>
         </div>
       </section>
 
-      <!-- UNDERSTANDING THE READER -->
+      <!-- UNDERSTANDING THE USER -->
       <section class="case-section" id="understanding">
-        <h2 class="section-heading">Understanding the reader</h2>
+        <h2 class="section-heading">Understanding the user</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Starting point</div>
-          <p class="case-body">Although the Product Designer and I were crafting this <mark class="hi">guidance from scratch</mark>, we had a strong foundation to build on. We had both been on the <mark class="hi">leading AI scrum team</mark> and had gained hands-on experience designing AI features and collaborating with engineers across various projects. During these projects, we also collected <mark class="hi">feedback and questions</mark> through our presentations to the <mark class="hi">Design Review Board</mark> and Product Review Board. These insights helped us <mark class="hi">define our starting place</mark> and <mark class="hi">identify key themes</mark> to address in the guidance.</p>
+          <div class="subsection-heading">User research</div>
+          <p class="case-body">I conducted interviews with people who were <mark class="hi">currently studying abroad or had studied abroad</mark> to truly understand the needs, behaviors, and motivations of the users. Then I used the <mark class="hi">qualitative data to create personas</mark> that reflected the users.</p>
+          <div class="interview-cards">
+            <div class="interview-card">
+              <div class="interview-icon" style="background: #3AADAD;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <p>Interviewees included current or former <strong>study abroad students</strong></p>
+            </div>
+            <div class="interview-card">
+              <div class="interview-icon" style="background: #3AADAD;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </div>
+              <p><strong>10 questions</strong> about travel preferences and pain points</p>
+            </div>
+          </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-heading">Interviews</div>
-          <p class="case-body">We held interviews with UX executives to understand what they were hoping to learn from this guidance and what they felt would <mark class="hi">best support the team</mark>.</p>
-          <div class="interview-cards">
-            <div class="interview-card">
-              <div class="interview-icon">
-                <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                </svg>
-              </div>
-              <p style="padding: 1rem 0 1.25rem;">Interviewees were Buildium <strong>UX executives</strong></p>
+          <div class="subsection-heading">Feedback</div>
+          <div class="quote-grid">
+            <div class="quote-bubble">
+              <q>I would love to take a trip that allows me to practice my language skills and learn about the local culture.</q>
+              <div class="quote-attribution">Study abroad student</div>
             </div>
-            <div class="interview-card">
-              <div class="interview-icon">
-                <span style="color:#fff;font-family:var(--font-sans);font-size:1.4rem;font-weight:700;line-height:1;">?</span>
+            <div class="quote-bubble right">
+              <q>I don't love the planning part of traveling. The scheduling of everything always stresses me out.</q>
+              <div class="quote-attribution">Study abroad student</div>
+            </div>
+            <div class="quote-bubble">
+              <q>Tour-guided trips are nice because you don't have to think as much, but in the past when I've gone on them, I feel stuck to a fixed schedule.</q>
+              <div class="quote-attribution">Study abroad student</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Personas</div>
+          <div class="persona-grid">
+            <div class="persona-card">
+              <img src="https://static.wixstatic.com/media/86619f_3141d11d3e604c76888e45485ec13d48~mv2.png" alt="Persona: Emily"/>
+              <div class="persona-caption">
+                <strong>Emily</strong>
+                An international study major who needs to expand her cultural knowledge and language skills with real-life experiences to enhance her studies.
               </div>
-              <p style="padding: 1rem 0 1.25rem;"><strong>Open ended questions</strong> about what AI questions they and their teams had</p>
+            </div>
+            <div class="persona-card">
+              <img src="https://static.wixstatic.com/media/86619f_e955814aa2e94882b1cb9489d3c35c10~mv2.png" alt="Persona: James"/>
+              <div class="persona-caption">
+                <strong>James</strong>
+                A finance major who needs to balance doing fun, stress-free activities with his friends while still doing enriching and educational activities to please his parents.
+              </div>
             </div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-heading">Pain points</div>
-          <p class="case-body">Through our experience and interviews with executives, we identified the following pain points designers would have when <mark class="hi">designing AI features for the first time</mark>.</p>
           <div style="display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0;">
 
             <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">1</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Limited AI knowledge</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">None of the designers had worked on AI projects before</div>
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #3AADAD; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">1</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Boring guided tours</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);"><strong>7 of 10</strong> interviewees stated that they disliked having boring guided tours</div>
               </div>
             </div>
 
             <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">2</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Limited coding knowledge</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Some designers were unfamiliar with coding</div>
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #3AADAD; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">2</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Trip planning stress</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);"><strong>8 of 10</strong> interviewees stated that they hated the stress of trip planning</div>
               </div>
             </div>
 
             <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">3</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Unfamiliar with prompt design</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Designers were unfamiliar with designing content through prompts</div>
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #3AADAD; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">3</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Non-educational trips</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);"><strong>6 of 10</strong> interviewees stated that they preferred trips to be educational</div>
               </div>
             </div>
 
             <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">4</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Maintaining brand voice</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Maintaining a consistent voice through prompts across projects would be difficult</div>
-              </div>
-            </div>
-
-            <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">5</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">No AI branding knowledge</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">AI branding and positioning would be new to designers</div>
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #3AADAD; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">4</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">No downtime to explore</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);"><strong>4 of 10</strong> interviewees did not like strict guided tours that did not allow for solo exploration</div>
               </div>
             </div>
 
           </div>
         </div>
+      </section>
+
+      <!-- FINDING INSPIRATION -->
+      <section class="case-section" id="inspiration">
+        <h2 class="section-heading">Finding inspiration</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Constraints</div>
-          <div class="interview-cards" style="grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto;">
-            <div class="interview-card">
-              <div class="interview-icon">
-                <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="1.8">
-                  <circle cx="12" cy="12" r="9"/>
-                  <path stroke-linecap="round" d="M12 7v5l3 3"/>
-                  <circle cx="12" cy="3" r="0.5" fill="#fff"/>
-                  <circle cx="12" cy="21" r="0.5" fill="#fff"/>
-                  <circle cx="3" cy="12" r="0.5" fill="#fff"/>
-                  <circle cx="21" cy="12" r="0.5" fill="#fff"/>
-                </svg>
-              </div>
-              <p style="padding: 2rem 0;">Only 2 weeks to develop guidance</p>
-            </div>
+          <div class="subsection-heading">History</div>
+          <p class="case-body">I researched the history of <mark class="hi">Lisbon, Cascais, Sintra, and Portugal</mark> to gain a better understanding of what the area had to offer. This gave me a solid foundation to build upon since many travelers were interested in the trip being <mark class="hi">educational and historical</mark>.</p>
+          <div class="image-row">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_64aa4b95da05462681f2fea52898bb07~mv2.png" alt="History research"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_1eb5ae594c37479091338480d8ef5595~mv2.png" alt="History research"/>
+          </div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_b2a6678845094bac9cd0f6654065f245~mv2.png" alt="History research" style="max-height: 300px; object-fit: cover;"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Moodboard</div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_d73bf1ef833c433b825dc55b4fa0707a~mv2.png" alt="Moodboard" style="max-height: 340px; object-fit: cover;"/>
+        </div>
+      </section>
+
+      <!-- DESIGNING THE EXPERIENCE -->
+      <section class="case-section" id="experience">
+        <h2 class="section-heading">Designing the experience</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Tour guides</div>
+          <p class="case-body">While the OnFleek team worked in the office during the week, we all doubled as tour guides on the weekends. Upon <mark class="hi">reviewing and analyzing the user research</mark>, we discussed ways to provide students with the best experience possible. Working as a team, we devised a plan to ensure <mark class="hi">high customer satisfaction</mark> and to <mark class="hi">address the pain point</mark> of students not wanting "boring tour guides."</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Itinerary rough draft</div>
+          <div class="image-row">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_08b5c096641a47e180e0bafde11cc890~mv2.png" alt="Itinerary rough draft day 1"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_5ea1c1a176fe4af6a15fd8308a29100a~mv2.png" alt="Itinerary rough draft day 2"/>
           </div>
         </div>
-      </section>
-
-      <!-- SIMPLIFYING AND CONNECTING -->
-      <section class="case-section" id="simplifying">
-        <h2 class="section-heading">Simplifying and connecting</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Analogy</div>
-          <p class="case-body">Writing for designers with a foundational understanding, I opened the content guidance with a <mark class="hi">conversational tone</mark> and an analogy to frame prompt design in a <mark class="hi">familiar, approachable way</mark>.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_725c3239e58c4cd8862fc52aa9b36ccc~mv2.png/v1/fill/w_1160,h_594,al_c,q_85,enc_avif,quality_auto/86619f_725c3239e58c4cd8862fc52aa9b36ccc~mv2.png" alt="Analogy example"/>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-heading">Soft coding vs. hard coding</div>
-          <p class="case-body">Then, I explained the difference between <mark class="hi">AI-generated</mark> content written with prompts versus <mark class="hi">human-written</mark> content, and provided examples to illustrate the distinction.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_6f5952eb53534b27bc1efcb254261aee~mv2.png/v1/fill/w_1160,h_800,al_c,q_85,enc_avif,quality_auto/IMG_2240_PNG.png" alt="Soft coding vs. hard coding"/>
+          <div class="subsection-heading">Planning</div>
+          <p class="case-body">Once the itinerary rough draft was written, <mark class="hi">we worked as a team</mark> to find the best accommodations, local restaurants, and Portuguese tour guides to <mark class="hi">provide city highlights and history</mark>. We also ensured a <mark class="hi">balance</mark> between having the trip structured enough that students did not have to stress about planning, but also not too structured to allow plenty of free time for students to explore the cities on their own or with the OnFleek guides.</p>
         </div>
       </section>
 
-      <!-- ESTABLISHING RULES -->
-      <section class="case-section" id="rules">
-        <h2 class="section-heading">Establishing rules</h2>
+      <!-- DESIGNING THE CONTENT -->
+      <section class="case-section" id="content">
+        <h2 class="section-heading">Designing the content</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Bridging the gap</div>
-          <p class="case-body">While some designers had computer science backgrounds, others had never touched backend code before. So, I wanted to frame the <mark class="hi">best practices</mark> in a way that helped bridge that gap and <mark class="hi">emphasize the need for precise instructions</mark> when working with large language models (LLMs).</p>
-          <p class="case-body">I also provided a set of <mark class="hi">tone of voice base prompts</mark> to use across all AI features, helping to keep a consistent and cohesive voice throughout the product.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5bafda645ad64fd59a55f9966e6f6fdb~mv2.png/v1/fill/w_1160,h_1144,al_c,q_85,enc_avif,quality_auto/IMG_2233_PNG.png" alt="Best practices guidance"/>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5e03dbe3489c4cfda320d4b41849fc58~mv2.png/v1/crop/x_0,y_0,w_1576,h_626/fill/w_1160,h_440,al_c,q_85,enc_avif,quality_auto/IMG_2232_PNG.png" alt="Tone of voice prompts"/>
+          <div class="subsection-heading">Lisbon</div>
+          <div class="content-pair">
+            <img class="case-image-contain" src="https://static.wixstatic.com/media/86619f_cb1eac9118154ad7ba170099221cbe06~mv2.png" alt="Lisbon trip information"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_ab19f4187b434e75ac2458fdbca9afc9~mv2.jpg" alt="Lisbon photo" style="margin:0; border-radius:1rem; border: 1px solid var(--border); object-fit:cover; width:100%; height:100%; min-height:200px;"/>
+          </div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_75b2247498224de28d28bbed1d6b97c1~mv2.png" alt="Lisbon trip description"/>
         </div>
 
         <div class="subsection">
-          <div class="subsection-heading">Engineering collaboration</div>
-          <p class="case-body">I also worked with the engineers on my scrum team to develop a set of guidelines and questions to facilitate efficient communication and <mark class="hi">collaboration between UX and engineers</mark> when prompt designing as a team.</p>
-        </div>
-      </section>
-
-      <!-- EMBEDDING AI -->
-      <section class="case-section" id="embedding">
-        <h2 class="section-heading">Embedding AI</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Integration</div>
-          <p class="case-body">It is important to strike a balance between <mark class="hi">highlighting new AI features and not interrupting the existing and familiar user experience</mark>. So, I explained how to use <mark class="hi">point of view</mark> to emphasize or blend AI features into the existing interface, depending on the objective. I worked closely with the Product Designer to ensure we also had guidance on how this coincides with design patterns and components.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5bdb38c6b2294792b09803461d7e075a~mv2.png/v1/fill/w_1160,h_664,al_c,q_85,enc_avif,quality_auto/IMG_2234_PNG.png" alt="AI integration guidance"/>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_0fbd89a0be3a44b292f11b27f1e93b1c~mv2.png/v1/fill/w_1160,h_610,al_c,q_85,enc_avif,quality_auto/pointofview.png" alt="Point of view guidance"/>
+          <div class="subsection-heading">Sintra</div>
+          <div class="content-pair">
+            <img class="case-image-contain" src="https://static.wixstatic.com/media/86619f_c71773da24024b4cb0ced5f4750e7b02~mv2.png" alt="Sintra trip description"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_131ae83e79d64bba811b7799392f955d~mv2.jpg" alt="Sintra photo" style="margin:0; border-radius:1rem; border: 1px solid var(--border); object-fit:cover; width:100%; height:100%; min-height:200px;"/>
+          </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-heading">Marketing collaboration</div>
-          <p class="case-body">Additionally, I collaborated with Product Marketing to create in-app, <mark class="hi">brand-specific guidance</mark> and crafted guidance for how designers should work with Product Marketing to ensure a <mark class="hi">unified voice</mark> and <mark class="hi">cohesive brand identity</mark> around AI.</p>
+          <div class="subsection-heading">Cascais</div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_21f033e3997c4eb38b17db81a1f94cdc~mv2.png" alt="Cascais trip description"/>
         </div>
-      </section>
-
-      <!-- THINKING GLOBALLY -->
-      <section class="case-section" id="global">
-        <h2 class="section-heading">Thinking globally</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Nuance</div>
-          <p class="case-body">I encouraged the designers to think about nuance too, since there would be <mark class="hi">infinite edge cases</mark> and <mark class="hi">cultural variations</mark> in the designs.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_33ad19de96c34fc0b8721bebad50dda3~mv2.png/v1/crop/x_25,y_309,w_1471,h_482/fill/w_1118,h_342,al_c,q_85,enc_avif,quality_auto/IMG_2237_PNG.png" alt="Cultural nuance guidance"/>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_010c3c3590284053befe0ba44030f18f~mv2.png/v1/fill/w_1118,h_216,al_c,q_85,enc_avif,quality_auto/IMG_2238_PNG.png" alt="Global considerations"/>
-        </div>
-      </section>
-
-      <!-- REVIEWING AND ITERATING -->
-      <section class="case-section" id="reviewing">
-        <h2 class="section-heading">Reviewing and iterating</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Comprehensive guidance</div>
-          <p class="case-body">The Product Designer and I combined our AI guidance and strategically organized it into <mark class="hi">10 sections</mark> to help readers seamlessly navigate and absorb the information.</p>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-heading">Presentations</div>
-          <p class="case-body">We presented this guidance to the <mark class="hi">Design Review Board</mark> and expanded on certain areas within the guidance where feedback suggested confusion or need for additional guidance. After this iteration, the Product Designer and I did a <mark class="hi">3-hour presentation</mark> over the course of 2 days to the broader UX team and executives. We noted their questions and feedback to iterate on the guidance.</p>
-
-        </div>
-      </section>
-
-      <!-- NEXT STEPS -->
-      <section class="case-section" id="next-steps">
-        <h2 class="section-heading">Next steps</h2>
-
-        <ul class="steps-list">
-          <li><span class="step-dot"></span><span>Set up <mark class="hi">4 hours of weekly</mark> <mark class="hi">AI Content Office Hours</mark> to monitor for recurring questions or themes that might need to be added to the guidance.</span></li>
-          <li><span class="step-dot"></span><span>Joined the <mark class="hi">Design Review Board</mark> as a <mark class="hi">board member</mark> to provide prompt design guidance and monitor for gaps in AI knowledge in the team.</span></li>
-          <li><span class="step-dot"></span><span>Plan to send out a <mark class="hi">survey</mark> to figure out where people are struggling, and will continue to send out surveys as needed.</span></li>
-          <li><span class="step-dot"></span><span>Continue to <mark class="hi">grow the AI Guidance</mark> from additional feedback.</span></li>
-        </ul>
       </section>
 
       <!-- CONCLUSION -->
@@ -988,53 +911,32 @@
 
         <div class="subsection">
           <div class="subsection-heading">Results</div>
-          <div style="margin: 1.5rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+          <p class="case-body">This project was used throughout various marketing mediums and ultimately assisted the company in achieving remarkable growth in its first years.</p>
+          <div class="stat-cards">
             <div class="stat-card">
-              <div class="stat-number">110+</div>
-              <div class="stat-label">AI-first features created with this guidance</div>
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Trips sold in the first year of business — exceeding the goal by over 500%</div>
             </div>
             <div class="stat-card">
-              <div class="stat-number">90%</div>
-              <div class="stat-label">of AI roadmap commitments hit</div>
+              <div class="stat-number">150+</div>
+              <div class="stat-label">Five-star reviews received within the first two years of business</div>
             </div>
           </div>
-          <div class="quote-grid">
-            <div class="quote-bubble">
-              <q>This is very valuable for the whole group! Thank you for this work!</q>
-              <div class="quote-attribution">UX Director</div>
-            </div>
-            <div class="quote-bubble right">
-              <q>Tremendous work! Plus, really liked how you structured the information within the guidance.</q>
-              <div class="quote-attribution">Product Designer</div>
-            </div>
-            <div class="quote-bubble">
-              <q>Great work equipe. Bom trabalho!</q>
-              <div class="quote-attribution">Product Designer</div>
-            </div>
-            <div class="quote-bubble right">
-              <q>Well done, Ramsey. Very good explanations.</q>
-              <div class="quote-attribution">Product Designer</div>
-            </div>
-          </div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_99e2c07ca7b24a8dadd286859ede9e4f~mv2.png" alt="Results screenshot" style="margin-top: 1.5rem;"/>
         </div>
 
         <div class="subsection">
           <div class="subsection-heading">Takeaways</div>
-          <p class="case-body">AI might be changing parts of the content design process, but at the core, <mark class="hi">centering users</mark> and <mark class="hi">collaborating efficiently</mark> within a team are <mark class="hi">essential human skills that will continue to co-exist alongside AI</mark>. I am glad this content could serve as an introduction to AI design for so many, and I look forward to continuing to support my team as we adapt to an AI-first model.</p>
+          <p class="case-body">As a travel enthusiast, working on this project with the OnFleek Travel & Beyond team was a dream come true. This project emphasized that <mark class="hi">designing with the end user in mind is one of the best ways to achieve and exceed business goals.</mark> Working on this project gave me valuable insight into <mark class="hi">user research, travel design, content writing,</mark> and <mark class="hi">providing an excellent user experience</mark>. I am beyond grateful to know that we successfully touched the lives and improved the study abroad experience of so many students.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_f4d595274fc94007b794034ac76ba786~mv2.png" alt="OnFleek team"/>
         </div>
-
-        <a href="index.html#portfolio" class="back-link" style="margin-top:3rem;display:inline-flex;">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-          Back to portfolio
-        </a>
       </section>
 
     </main>
   </div>
 
-  <footer>
-    <span>© 2026 Ramsey Gunter</span>
-  </footer>
+  <!-- FOOTER -->
+  <footer>© 2026 Ramsey Gunter · Designed with care</footer>
 
   <!-- Custom cursor: bow & arrow with periwinkle flowers -->
   <script>

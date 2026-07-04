@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Buildium AI — Ramsey Gunter</title>
+  <title>Waldo — Ramsey Gunter</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -363,31 +363,79 @@
       padding: 1rem;
     }
 
-    .pain-points-grid {
+    /* Interview cards */
+    .interview-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: calc(1.5rem + 34px) 0 1.5rem;
+    }
+    .interview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 0 1.25rem 1.25rem;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      overflow: visible;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .interview-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #8AABDB;
+      display: flex;
+      align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      margin-top: -24px;
+      position: relative;
+      z-index: 1;
+    }
+    .interview-icon svg { color: #fff; width: 22px; height: 22px; }
+    .interview-card p {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      .interview-cards { grid-template-columns: 1fr; }
+    }
+
+    /* Pain point cards */
+    .pain-points-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto auto auto auto;
       gap: 1.25rem;
       margin: calc(1.5rem + 34px) 0 1.5rem;
+      align-items: start;
     }
     .pain-point-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 1rem;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 2;
+      align-items: start;
       text-align: center;
-      flex: 0 0 calc(33.33% - 0.84rem);
       overflow: visible;
       position: relative;
+      min-width: 0;
+      width: 100%;
       transition: background 0.3s, border-color 0.3s;
     }
     .pain-point-num {
       width: 48px; height: 48px;
       border-radius: 50%;
-      background: #A0A6DB;
+      background: #8AABDB;
       display: flex; align-items: center; justify-content: center;
       position: absolute;
       top: -24px;
@@ -401,13 +449,13 @@
     }
     .pain-point-header {
       width: 100%;
-      background: #C4C8E8;
+      background: #DDE8FF;
       border-radius: 1rem 1rem 0.75rem 0.75rem;
       padding: calc(24px + 0.85rem) 1.25rem 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 130px;
+      align-self: stretch;
     }
     .pain-point-title {
       font-family: var(--font-sans);
@@ -415,6 +463,8 @@
       font-weight: 700;
       color: var(--ink);
       line-height: 1.4;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .pain-point-desc {
       font-family: var(--font-sans);
@@ -423,14 +473,19 @@
       line-height: 1.5;
       padding: 0.85rem 1.25rem 1.5rem;
     }
-    @media (max-width: 600px) {
-      .pain-point-card { flex: 0 0 calc(50% - 0.625rem); }
+
+    /* Pain points image grid (4-column, no cards) — keep for legacy */
+    .pain-points-img-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
     }
 
-    .pain-point-card img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .pain-points-img-grid .case-image {
+      margin: 0;
+      border: none;
+      object-fit: contain;
     }
 
     /* Next steps list */
@@ -458,180 +513,59 @@
       margin-top: 0.55rem;
     }
 
-    /* Stat card */
-    .stat-card {
-      background: #F4F4F4;
+    /* Before/after comparison */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+    .before-card {
+      background: #2C3694;
+      border-radius: 0;
+      padding: 1.25rem;
+    }
+    .after-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      padding: 0;
       border: 1px solid var(--border);
-      border-radius: 1.25rem;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      display: block;
-      transition: background 0.3s, border-color 0.3s;
     }
-    html.dark .stat-card {
-      background: var(--card-bg);
+    .ba-arrow {
+      font-size: 2.5rem;
+      color: #2C3694;
+      line-height: 1;
+      user-select: none;
+      flex-shrink: 0;
     }
-    .stat-number {
-      font-family: var(--font-serif);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--periwinkle);
-      margin-bottom: 0.35rem;
-    }
-    .stat-label {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-weight: 500;
+    @media (max-width: 768px) {
+      .before-after {
+        grid-template-columns: 1fr;
+      }
+      .ba-arrow {
+        text-align: center;
+        display: block;
+        transform: rotate(90deg);
+      }
     }
 
-    /* Speech bubbles */
-    .quote-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      margin-top: 2rem;
-    }
-    .quote-bubble {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 1rem 1rem 1rem 0;
-      padding: 1.4rem 1.6rem 1.2rem;
-      position: relative;
-    }
-    .quote-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      left: 0;
-      border-width: 12px 12px 0 0;
-      border-style: solid;
-      border-color: var(--border) transparent transparent transparent;
-    }
-    .quote-bubble::before {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 1px;
-      border-width: 11px 11px 0 0;
-      border-style: solid;
-      border-color: var(--card-bg) transparent transparent transparent;
-      z-index: 1;
-    }
-    .quote-bubble.right {
-      border-radius: 1rem 1rem 0 1rem;
-    }
-    .quote-bubble.right::after {
-      left: auto;
-      right: 0;
-      border-width: 12px 0 0 12px;
-    }
-    .quote-bubble.right::before {
-      left: auto;
-      right: 1px;
-      border-width: 11px 0 0 11px;
-    }
-    .quote-bubble q {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-      quotes: "\201C" "\201D";
-      display: block;
-      margin-bottom: 0.9rem;
-    }
-    .quote-bubble q::before { content: open-quote; }
-    .quote-bubble q::after  { content: close-quote; }
-    .quote-attribution {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-main);
-      text-align: right;
-      letter-spacing: 0.01em;
-    }
-    .quote-attribution::before { content: '— '; }
-    @media (max-width: 600px) {
-      .quote-grid { grid-template-columns: 1fr; }
-    }
-
-    /* Interview cards */
-    .interview-cards {
+    /* Finalizing before/after row — legacy */
+    .finalizing-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin: calc(1.5rem + 34px) 0 1.5rem;
-      align-items: stretch;
-    }
-    .interview-cards .interview-card {
-      min-height: 140px;
-    }
-    .interview-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 1rem;
-      padding: 0 1.25rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0.75rem;
-      overflow: visible;
-      transition: background 0.3s, border-color 0.3s;
-    }
-    .interview-icon {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #A0A6DB;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: -24px;
-      position: relative;
-      z-index: 1;
-    }
-    .interview-icon svg { color: #fff; width: 22px; height: 22px; }
-    .interview-card p {
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      color: var(--text-main);
-      line-height: 1.5;
-      margin: 0;
-    }
-    @media (max-width: 600px) {
-      .interview-cards { grid-template-columns: 1fr; }
-    }
-
-    /* Results grid */
-    .results-grid {
-      display: flex;
-      flex-direction: column;
       gap: 1rem;
       margin: 1.5rem 0;
     }
 
-    .results-grid .case-image {
+    .finalizing-row .case-image {
       margin: 0;
-      height: auto;
-      object-fit: unset;
+      height: 400px;
+      object-fit: contain;
       border: none;
-    }
-    .results-grid .case-image.full {
-      grid-column: 1 / -1;
-      height: auto;
-    }
-
-    /* Conclusion highlight */
-    .takeaway-box {
-      background: linear-gradient(135deg, rgba(123,130,201,0.08), rgba(160,166,219,0.06));
-      border: 1px solid rgba(123,130,201,0.25);
+      background: var(--card-bg);
       border-radius: 1rem;
-      padding: 2rem;
-      margin-top: 1.5rem;
-    }
-
-    .takeaway-box p {
-      font-family: var(--font-sans);
-      font-size: 1.15rem;
-      font-style: normal;
-      color: var(--text-main);
-      line-height: 1.75;
+      padding: 1rem;
     }
 
     /* ── FOOTER ── */
@@ -653,10 +587,13 @@
       .page-wrapper { padding-top: 90px; }
       .overview-grid { grid-template-columns: 1fr; }
       .image-row { grid-template-columns: 1fr; }
-      .results-grid { grid-template-columns: 1fr; }
+      .pain-points-img-grid { grid-template-columns: repeat(2, 1fr); }
+      .pain-points-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto auto auto auto; }
+      .finalizing-row { grid-template-columns: 1fr; }
     }
 
-    mark.hi { background: rgba(123, 130, 201, 0.32); color: inherit; border-radius: 2px; padding: 0 2px; font-style: inherit; }
+    mark.hi { background: rgb(221, 232, 255); color: inherit; border-radius: 2px; padding: 0 2px; font-style: inherit; }
+    html.dark mark.hi { background: rgba(139, 171, 219, 0.28); }
   </style>
 </head>
 <body>
@@ -724,12 +661,11 @@
       </a>
       <ul class="sidebar-nav">
         <li><a href="#overview">Project overview</a></li>
-        <li><a href="#understanding">Understanding the reader</a></li>
-        <li><a href="#simplifying">Simplifying and connecting</a></li>
-        <li><a href="#rules">Establishing rules</a></li>
-        <li><a href="#embedding">Embedding AI</a></li>
-        <li><a href="#global">Thinking globally</a></li>
-        <li><a href="#reviewing">Reviewing and iterating</a></li>
+        <li><a href="#understanding">Understanding the user</a></li>
+        <li><a href="#starting">Starting the design</a></li>
+        <li><a href="#testing">Testing the design</a></li>
+        <li><a href="#refining">Refining the design</a></li>
+        <li><a href="#finalizing">Finalizing the design</a></li>
         <li><a href="#next-steps">Next steps</a></li>
         <li><a href="#conclusion">Conclusion</a></li>
       </ul>
@@ -740,27 +676,28 @@
 
       <!-- HERO -->
       <header class="case-hero">
-        <div class="case-label"><strong>Case Study</strong> · Prompt Engineering · Conversation Design</div>
-        <h1 class="case-title"><em>Buildium</em> AI</h1>
-        <img
-          src="https://static.wixstatic.com/media/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png/v1/fill/w_640,h_904,q_90,enc_avif,quality_auto/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png"
-          alt="Buildium AI"
-          style="width:100%;max-height:380px;object-fit:cover;border-radius:1rem;margin:1.5rem 0;display:block;border:1px solid var(--border);"
-        />
+        <div class="case-label"><strong>Case Study</strong> · UX Writing · E-Commerce</div>
+        <h1 class="case-title">Waldo</h1>
         <div class="case-meta">
           <div class="meta-item">
             <div class="meta-label">Role</div>
-            <div class="meta-value">Content Designer</div>
+            <div class="meta-value">UX Writer</div>
           </div>
           <div class="meta-item">
             <div class="meta-label">Duration</div>
-            <div class="meta-value">2 weeks</div>
+            <div class="meta-value">2 months</div>
           </div>
           <div class="meta-item">
             <div class="meta-label">Team</div>
-            <div class="meta-value">Product Designer</div>
+            <div class="meta-value">UX Designer · Data Lead · Lead Developer · CX Lead</div>
           </div>
         </div>
+        <img
+          class="case-image"
+          src="https://static.wixstatic.com/media/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png"
+          alt="Waldo hero"
+          style="margin-top: 2rem; border-radius: 1rem; max-width: 100%; border: none;"
+        />
       </header>
 
       <!-- PROJECT OVERVIEW -->
@@ -770,40 +707,136 @@
         <div class="overview-grid">
           <div class="overview-card">
             <div class="subsection-heading">Brief</div>
-            <p class="case-body" style="margin:0">Buildium is a cloud-based property management software company that recently implemented an AI-first roadmap and needs scalable AI design guidance for its <mark class="hi">international UX team</mark>. As the Content Designer, I <mark class="hi">developed the tone of voice and system prompt engineering guidance</mark> while collaborating closely with a Product Designer.</p>
+            <p class="case-body" style="margin:0">Waldo is a startup company based in London, England. They specialize in subscription-based contact lenses and other eye care products. Waldo has started to <mark class="hi">expand into the US market</mark> and wants insight into why their customers cancel their subscriptions and to address those issues to improve the customer experience. My role as UX Writer was to empathize with the customers and <mark class="hi">design cancellation options that reflected customers' frustrations</mark> succinctly.</p>
           </div>
           <div class="overview-card">
             <div class="subsection-heading">Project</div>
-            <p class="case-body" style="margin:0">Use user-centered design thinking to develop <mark class="hi">instructional and informative AI guidance</mark> for not only executives, but the entire UX department.</p>
+            <p class="case-body" style="margin:0">I used user-centered design thinking to <mark class="hi">design a cancellation survey</mark> list that best reflected customers' reasons for canceling a contact lens subscription. I also <mark class="hi">collaborated</mark> closely with my team to ensure <mark class="hi">different perspectives</mark> were heard and business goals were considered.</p>
           </div>
           <div class="overview-card">
             <div class="subsection-heading">Problem</div>
-            <p class="case-body" style="margin:0">There was a shift toward AI-first development and the UX executives had no user-centered AI guidance to help grow the business.</p>
+            <p class="case-body" style="margin:0">The cancellation survey is outdated, and the reasons lack clarity, which frustrates users. Without a clear understanding of why users are canceling, we cannot address the issues they are experiencing.</p>
           </div>
           <div class="overview-card">
             <div class="subsection-heading">Solution</div>
-            <p class="case-body" style="margin:0">Create tone of voice and prompt design guidance within broader AI guidance to promote consistent and scalable AI content that centers users while creating a foundation that supports business goals.</p>
+            <p class="case-body" style="margin:0">Revamp the cancellation survey to provide clarity for users, allowing them to feel heard while gathering optimized data to address the issues they are experiencing.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING THE USER -->
+      <section class="case-section" id="understanding">
+        <h2 class="section-heading">Understanding the user</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Original design</div>
+          <p class="case-body">Firstly, I assessed the current cancellation survey options. <mark class="hi">Many lacked clarity</mark> and had <mark class="hi">clunky-looking</mark> slashes that gave the options a <mark class="hi">technical</mark> feel instead of the empathetic, human touch that can help ease users who might already feel <mark class="hi">frustrated</mark>. I noted this and decided to do some user testing to see users' thoughts firsthand.</p>
+          <img
+            class="case-image"
+            src="https://static.wixstatic.com/media/86619f_bab762bf366742e5bf5acdd9586262bf~mv2.png/v1/fill/w_714,h_808,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screen%20Shot%202025-10-12%20at%203_18_06%20PM.png"
+            alt="Original cancellation survey design"
+            style="max-width: 360px; margin-left: auto; margin-right: auto;"
+          />
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Research</div>
+          <p class="case-body">All interviewees were representative of <mark class="hi">Waldo's customer base</mark> and only included contact lens wearers and online subscribers of a product or service. I started by collecting <mark class="hi">pain points</mark> regarding online subscriptions and wearing contact lenses, then asked for <mark class="hi">feedback</mark> on Waldo's current cancellation reason list.</p>
+          <div class="interview-cards" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="interview-card">
+              <div class="interview-icon">
+                <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+              </div>
+              <p>Interviewees included <strong>contact lens wearers</strong> and <strong>online subscribers</strong> of a product or service</p>
+            </div>
+            <div class="interview-card">
+              <div class="interview-icon">
+                <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24">
+                  <rect x="9" y="5" width="10" height="2" rx="1"/><rect x="9" y="11" width="10" height="2" rx="1"/><rect x="9" y="17" width="10" height="2" rx="1"/>
+                  <circle cx="6" cy="6" r="1.2"/><circle cx="6" cy="12" r="1.2"/><circle cx="6" cy="18" r="1.2"/>
+                </svg>
+              </div>
+              <p><strong>15 questions</strong> about the pain points of contact lenses and online subscriptions</p>
+            </div>
+            <div class="interview-card">
+              <div class="interview-icon">
+                <span style="color:#fff;font-family:var(--font-sans);font-size:1.4rem;font-weight:700;line-height:1;">?</span>
+              </div>
+              <p><strong>Open ended question</strong> about the existing cancellation survey options</p>
+            </div>
           </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-heading">Learning opportunity</div>
-          <p class="case-body">While I have years of experience growing existing content guidance, this would be my first time putting together <mark class="hi">guidance from scratch</mark>. Therefore, the Product Designer and I invited lots of stakeholder feedback and prepared ourselves for <mark class="hi">many iterations</mark> to ensure the guidance effectively supported its target audience.</p>
+          <div class="subsection-heading">Pain points</div>
+          <div style="display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0;">
+
+            <div style="display: flex; align-items: center;">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #8AABDB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">1</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">'Disappointed with service' unclear</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Users were unsure if this was referring to delivery, product quality, etc.</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center;">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #8AABDB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">2</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">'Uncomfortable/hard to use' unclear</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Users were confused how contact lenses could be hard to use</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center;">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #8AABDB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">3</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">'Need a different lens' unclear</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Users were confused what this option was referring to</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center;">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #8AABDB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">4</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">No option to expand on 'Other'</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Users were disappointed that there was no option to explain why they chose 'Other'</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
-      <!-- UNDERSTANDING THE READER -->
-      <section class="case-section" id="understanding">
-        <h2 class="section-heading">Understanding the reader</h2>
+      <!-- STARTING THE DESIGN -->
+      <section class="case-section" id="starting">
+        <h2 class="section-heading">Starting the design</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Starting point</div>
-          <p class="case-body">Although the Product Designer and I were crafting this <mark class="hi">guidance from scratch</mark>, we had a strong foundation to build on. We had both been on the <mark class="hi">leading AI scrum team</mark> and had gained hands-on experience designing AI features and collaborating with engineers across various projects. During these projects, we also collected <mark class="hi">feedback and questions</mark> through our presentations to the <mark class="hi">Design Review Board</mark> and Product Review Board. These insights helped us <mark class="hi">define our starting place</mark> and <mark class="hi">identify key themes</mark> to address in the guidance.</p>
+          <div class="subsection-heading">Analyzing the pain points</div>
+          <p class="case-body">I <mark class="hi">analyzed this feedback</mark> and reviewed it with the UX Designer. Since one of the pain points included wanting to expand on the 'other' option, I <mark class="hi">connected with the Data Lead and Lead Developer</mark> to gain insight on the feasibility of <mark class="hi">adding a free text box</mark>. Both agreed it would be a good addition, but it would have to be a separate project after the initial copy changes. Setting that aside, I began addressing the other pain points and adding clarity to the options overall.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-heading">Interviews</div>
-          <p class="case-body">We held interviews with UX executives to understand what they were hoping to learn from this guidance and what they felt would <mark class="hi">best support the team</mark>.</p>
+          <div class="subsection-heading">Optimizing the options</div>
+          <p class="case-body">Referencing the user feedback, I <mark class="hi">optimized the survey options</mark> and reviewed them with the UX Designer. Once we were both pleased with the new options, I set up <mark class="hi">another round of user testing</mark>.</p>
+          <img
+            class="case-image"
+            src="https://static.wixstatic.com/media/86619f_2470b13da59a4c79882012beacce8f26~mv2.png/v1/fill/w_710,h_1006,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Group%2030.png"
+            alt="Optimized survey options"
+            style="max-width: 360px; margin-left: auto; margin-right: auto;"
+          />
+        </div>
+      </section>
+
+      <!-- TESTING THE DESIGN -->
+      <section class="case-section" id="testing">
+        <h2 class="section-heading">Testing the design</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">User testing</div>
+          <p class="case-body">Once again, all interviewees were representative of <mark class="hi">Waldo's customer base</mark> and only included contact lens wearers and online subscribers of a product or service. I asked each interviewee for <mark class="hi">feedback</mark> on the optimized cancellation survey options.</p>
           <div class="interview-cards">
             <div class="interview-card">
               <div class="interview-icon">
@@ -811,162 +844,82 @@
                   <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
                 </svg>
               </div>
-              <p style="padding: 1rem 0 1.25rem;">Interviewees were Buildium <strong>UX executives</strong></p>
+              <p>Interviewees were <strong>contact lens wearers</strong> and <strong>online subscribers</strong> representative of Waldo's customer base</p>
             </div>
             <div class="interview-card">
               <div class="interview-icon">
                 <span style="color:#fff;font-family:var(--font-sans);font-size:1.4rem;font-weight:700;line-height:1;">?</span>
               </div>
-              <p style="padding: 1rem 0 1.25rem;"><strong>Open ended questions</strong> about what AI questions they and their teams had</p>
+              <p>Asked each interviewee for <strong>feedback</strong> on the <strong>optimized cancellation survey options</strong></p>
             </div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-heading">Pain points</div>
-          <p class="case-body">Through our experience and interviews with executives, we identified the following pain points designers would have when <mark class="hi">designing AI features for the first time</mark>.</p>
           <div style="display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0;">
 
             <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">1</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Limited AI knowledge</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">None of the designers had worked on AI projects before</div>
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #8AABDB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">1</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Unclear option</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Users mistook 'Prefer monthlies or weeklies' for the subscription frequency, not the contact lens style</div>
               </div>
             </div>
 
             <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">2</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Limited coding knowledge</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Some designers were unfamiliar with coding</div>
-              </div>
-            </div>
-
-            <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">3</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Unfamiliar with prompt design</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Designers were unfamiliar with designing content through prompts</div>
-              </div>
-            </div>
-
-            <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">4</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Maintaining brand voice</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Maintaining a consistent voice through prompts across projects would be difficult</div>
-              </div>
-            </div>
-
-            <div style="display: flex; align-items: center;">
-              <div style="width: 52px; height: 52px; border-radius: 50%; background: #A0A6DB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">5</div>
-              <div style="background: var(--card-bg); border-radius: 0 0.75rem 0.75rem 0; border: 1px solid var(--border); padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">No AI branding knowledge</div>
-                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">AI branding and positioning would be new to designers</div>
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: #8AABDB; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; margin-right: -26px;">2</div>
+              <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 0 0.75rem 0.75rem 0; padding: 0 1.25rem 0 36px; flex: 1; min-height: 52px; display: flex; flex-direction: column; justify-content: center; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 2px;">Lengthy list</div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);">Users thought the list was too long for someone who just wants to cancel their subscription</div>
               </div>
             </div>
 
           </div>
         </div>
+      </section>
+
+      <!-- REFINING THE DESIGN -->
+      <section class="case-section" id="refining">
+        <h2 class="section-heading">Refining the design</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Constraints</div>
-          <div class="interview-cards" style="grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto;">
-            <div class="interview-card">
-              <div class="interview-icon">
-                <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="1.8">
-                  <circle cx="12" cy="12" r="9"/>
-                  <path stroke-linecap="round" d="M12 7v5l3 3"/>
-                  <circle cx="12" cy="3" r="0.5" fill="#fff"/>
-                  <circle cx="12" cy="21" r="0.5" fill="#fff"/>
-                  <circle cx="3" cy="12" r="0.5" fill="#fff"/>
-                  <circle cx="21" cy="12" r="0.5" fill="#fff"/>
-                </svg>
-              </div>
-              <p style="padding: 2rem 0;">Only 2 weeks to develop guidance</p>
+          <div class="subsection-heading">Analyzing the pain points</div>
+          <p class="case-body">I <mark class="hi">analyzed this feedback</mark> and changed 'Prefer monthlies or weeklies' to 'Do not want daily lenses' to prevent confusion. For the pain point regarding the survey list being too long, <mark class="hi">I expressed my concerns to the UX Designer and Data Lead</mark>. If users found the survey list too long, it might provoke inaccurate responses. <mark class="hi">I offered the solution of combining similar options</mark> to shorten the list, but ultimately <mark class="hi">we decided to keep the detailed, longer list</mark> to <mark class="hi">gain more insights</mark> about customers' cancellation reasons.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">CX data comparison</div>
+          <p class="case-body">After finalizing the list length, I <mark class="hi">collaborated with the CX Lead</mark> to ensure the survey options <mark class="hi">aligned with the CX data reports</mark> from customers who canceled via phone. All survey options lined up perfectly with the CX data, apart from <mark class="hi">two missing options: 'Moved out of delivery region' and 'Lenses out of stock'</mark>. The CX Lead also suggested adding a follow-up question section, but after speaking with the Lead Developer, we agreed to add this to a future project.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Refined design</div>
+          <p class="case-body">After adding the two additional options from the CX data reports, I <mark class="hi">presented the new survey list</mark> to the UX Designer, Data Lead, and CX Lead. Everyone was pleased with the newly optimized options, and we set in motion <mark class="hi">implementing the changes</mark> to the cancellation flow.</p>
+          <img
+            class="case-image"
+            src="https://static.wixstatic.com/media/86619f_12cf833b46b942c2a1487df320bc2acb~mv2.png/v1/fill/w_666,h_1072,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Group%2031.png"
+            alt="Refined survey design"
+            style="max-width: 340px; margin-left: auto; margin-right: auto;"
+          />
+        </div>
+      </section>
+
+      <!-- FINALIZING THE DESIGN -->
+      <section class="case-section" id="finalizing">
+        <h2 class="section-heading">Finalizing the design</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Before vs. after</div>
+          <div class="before-after">
+            <div class="before-card">
+              <img src="WaldoBefore.avif" alt="Before — original cancellation survey" style="width:100%;border-radius:0;display:block;"/>
+            </div>
+            <div class="ba-arrow">→</div>
+            <div class="after-card">
+              <img src="WaldoAfter.avif" alt="After — refined cancellation survey" style="width:100%;display:block;"/>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- SIMPLIFYING AND CONNECTING -->
-      <section class="case-section" id="simplifying">
-        <h2 class="section-heading">Simplifying and connecting</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Analogy</div>
-          <p class="case-body">Writing for designers with a foundational understanding, I opened the content guidance with a <mark class="hi">conversational tone</mark> and an analogy to frame prompt design in a <mark class="hi">familiar, approachable way</mark>.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_725c3239e58c4cd8862fc52aa9b36ccc~mv2.png/v1/fill/w_1160,h_594,al_c,q_85,enc_avif,quality_auto/86619f_725c3239e58c4cd8862fc52aa9b36ccc~mv2.png" alt="Analogy example"/>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-heading">Soft coding vs. hard coding</div>
-          <p class="case-body">Then, I explained the difference between <mark class="hi">AI-generated</mark> content written with prompts versus <mark class="hi">human-written</mark> content, and provided examples to illustrate the distinction.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_6f5952eb53534b27bc1efcb254261aee~mv2.png/v1/fill/w_1160,h_800,al_c,q_85,enc_avif,quality_auto/IMG_2240_PNG.png" alt="Soft coding vs. hard coding"/>
-        </div>
-      </section>
-
-      <!-- ESTABLISHING RULES -->
-      <section class="case-section" id="rules">
-        <h2 class="section-heading">Establishing rules</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Bridging the gap</div>
-          <p class="case-body">While some designers had computer science backgrounds, others had never touched backend code before. So, I wanted to frame the <mark class="hi">best practices</mark> in a way that helped bridge that gap and <mark class="hi">emphasize the need for precise instructions</mark> when working with large language models (LLMs).</p>
-          <p class="case-body">I also provided a set of <mark class="hi">tone of voice base prompts</mark> to use across all AI features, helping to keep a consistent and cohesive voice throughout the product.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5bafda645ad64fd59a55f9966e6f6fdb~mv2.png/v1/fill/w_1160,h_1144,al_c,q_85,enc_avif,quality_auto/IMG_2233_PNG.png" alt="Best practices guidance"/>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5e03dbe3489c4cfda320d4b41849fc58~mv2.png/v1/crop/x_0,y_0,w_1576,h_626/fill/w_1160,h_440,al_c,q_85,enc_avif,quality_auto/IMG_2232_PNG.png" alt="Tone of voice prompts"/>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-heading">Engineering collaboration</div>
-          <p class="case-body">I also worked with the engineers on my scrum team to develop a set of guidelines and questions to facilitate efficient communication and <mark class="hi">collaboration between UX and engineers</mark> when prompt designing as a team.</p>
-        </div>
-      </section>
-
-      <!-- EMBEDDING AI -->
-      <section class="case-section" id="embedding">
-        <h2 class="section-heading">Embedding AI</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Integration</div>
-          <p class="case-body">It is important to strike a balance between <mark class="hi">highlighting new AI features and not interrupting the existing and familiar user experience</mark>. So, I explained how to use <mark class="hi">point of view</mark> to emphasize or blend AI features into the existing interface, depending on the objective. I worked closely with the Product Designer to ensure we also had guidance on how this coincides with design patterns and components.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5bdb38c6b2294792b09803461d7e075a~mv2.png/v1/fill/w_1160,h_664,al_c,q_85,enc_avif,quality_auto/IMG_2234_PNG.png" alt="AI integration guidance"/>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_0fbd89a0be3a44b292f11b27f1e93b1c~mv2.png/v1/fill/w_1160,h_610,al_c,q_85,enc_avif,quality_auto/pointofview.png" alt="Point of view guidance"/>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-heading">Marketing collaboration</div>
-          <p class="case-body">Additionally, I collaborated with Product Marketing to create in-app, <mark class="hi">brand-specific guidance</mark> and crafted guidance for how designers should work with Product Marketing to ensure a <mark class="hi">unified voice</mark> and <mark class="hi">cohesive brand identity</mark> around AI.</p>
-        </div>
-      </section>
-
-      <!-- THINKING GLOBALLY -->
-      <section class="case-section" id="global">
-        <h2 class="section-heading">Thinking globally</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Nuance</div>
-          <p class="case-body">I encouraged the designers to think about nuance too, since there would be <mark class="hi">infinite edge cases</mark> and <mark class="hi">cultural variations</mark> in the designs.</p>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_33ad19de96c34fc0b8721bebad50dda3~mv2.png/v1/crop/x_25,y_309,w_1471,h_482/fill/w_1118,h_342,al_c,q_85,enc_avif,quality_auto/IMG_2237_PNG.png" alt="Cultural nuance guidance"/>
-          <img class="case-image" src="https://static.wixstatic.com/media/86619f_010c3c3590284053befe0ba44030f18f~mv2.png/v1/fill/w_1118,h_216,al_c,q_85,enc_avif,quality_auto/IMG_2238_PNG.png" alt="Global considerations"/>
-        </div>
-      </section>
-
-      <!-- REVIEWING AND ITERATING -->
-      <section class="case-section" id="reviewing">
-        <h2 class="section-heading">Reviewing and iterating</h2>
-
-        <div class="subsection">
-          <div class="subsection-heading">Comprehensive guidance</div>
-          <p class="case-body">The Product Designer and I combined our AI guidance and strategically organized it into <mark class="hi">10 sections</mark> to help readers seamlessly navigate and absorb the information.</p>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-heading">Presentations</div>
-          <p class="case-body">We presented this guidance to the <mark class="hi">Design Review Board</mark> and expanded on certain areas within the guidance where feedback suggested confusion or need for additional guidance. After this iteration, the Product Designer and I did a <mark class="hi">3-hour presentation</mark> over the course of 2 days to the broader UX team and executives. We noted their questions and feedback to iterate on the guidance.</p>
-
         </div>
       </section>
 
@@ -975,10 +928,10 @@
         <h2 class="section-heading">Next steps</h2>
 
         <ul class="steps-list">
-          <li><span class="step-dot"></span><span>Set up <mark class="hi">4 hours of weekly</mark> <mark class="hi">AI Content Office Hours</mark> to monitor for recurring questions or themes that might need to be added to the guidance.</span></li>
-          <li><span class="step-dot"></span><span>Joined the <mark class="hi">Design Review Board</mark> as a <mark class="hi">board member</mark> to provide prompt design guidance and monitor for gaps in AI knowledge in the team.</span></li>
-          <li><span class="step-dot"></span><span>Plan to send out a <mark class="hi">survey</mark> to figure out where people are struggling, and will continue to send out surveys as needed.</span></li>
-          <li><span class="step-dot"></span><span>Continue to <mark class="hi">grow the AI Guidance</mark> from additional feedback.</span></li>
+          <li><span class="step-dot"></span><span>Begin putting together a project plan for a <mark class="hi">secondary project</mark> which will include an 'Other' input box and follow-up questions after the main cancellation question</span></li>
+          <li><span class="step-dot"></span><span>Record the survey data to <mark class="hi">gain insights</mark> and see if <mark class="hi">any additional changes</mark> are needed</span></li>
+          <li><span class="step-dot"></span><span>Review the data to see how we can <mark class="hi">improve the user experience with Waldo</mark></span></li>
+          <li><span class="step-dot"></span><span>Add win-back text within the cancellation flow for appropriate options</span></li>
         </ul>
       </section>
 
@@ -987,40 +940,8 @@
         <h2 class="section-heading">Conclusion</h2>
 
         <div class="subsection">
-          <div class="subsection-heading">Results</div>
-          <div style="margin: 1.5rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
-            <div class="stat-card">
-              <div class="stat-number">110+</div>
-              <div class="stat-label">AI-first features created with this guidance</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">90%</div>
-              <div class="stat-label">of AI roadmap commitments hit</div>
-            </div>
-          </div>
-          <div class="quote-grid">
-            <div class="quote-bubble">
-              <q>This is very valuable for the whole group! Thank you for this work!</q>
-              <div class="quote-attribution">UX Director</div>
-            </div>
-            <div class="quote-bubble right">
-              <q>Tremendous work! Plus, really liked how you structured the information within the guidance.</q>
-              <div class="quote-attribution">Product Designer</div>
-            </div>
-            <div class="quote-bubble">
-              <q>Great work equipe. Bom trabalho!</q>
-              <div class="quote-attribution">Product Designer</div>
-            </div>
-            <div class="quote-bubble right">
-              <q>Well done, Ramsey. Very good explanations.</q>
-              <div class="quote-attribution">Product Designer</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="subsection">
           <div class="subsection-heading">Takeaways</div>
-          <p class="case-body">AI might be changing parts of the content design process, but at the core, <mark class="hi">centering users</mark> and <mark class="hi">collaborating efficiently</mark> within a team are <mark class="hi">essential human skills that will continue to co-exist alongside AI</mark>. I am glad this content could serve as an introduction to AI design for so many, and I look forward to continuing to support my team as we adapt to an AI-first model.</p>
+          <p class="case-body">Canceling a subscription is often a frustrating experience, and this project gave me the challenge of creating a great customer experience within that. It reinforced the importance of <mark class="hi">compromise</mark>, taking time to understand <mark class="hi">different perspectives</mark>, and recognizing that sometimes what is best for the user cannot be accomplished immediately. However, by working together to put a clear plan in place and using <mark class="hi">data-driven design</mark>, the users' frustrations served as the driving force for <mark class="hi">improving the customer experience</mark> — proving that negative feedback and the loss of a customer can be a <mark class="hi">catalyst for change</mark> and the key to a <mark class="hi">new and improved user experience</mark>.</p>
         </div>
 
         <a href="index.html#portfolio" class="back-link" style="margin-top:3rem;display:inline-flex;">

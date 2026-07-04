@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Charvick Farm — Ramsey Gunter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFF9F3;
+      --sand: #E8DDD0;
+      --ink: #1E1A17;
+      --ink-muted: #6B5E52;
+      --terracotta: #B5714A;
+      --terracotta-light: #C8835E;
+      --periwinkle: #7B82C9;
+      --periwinkle-light: #A0A6DB;
+      --periwinkle-dark: #5558A8;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Raleway', system-ui, sans-serif;
+      --bg-primary: var(--cream);
+      --bg-secondary: var(--warm-white);
+      --text-main: var(--ink);
+      --text-muted: var(--ink-muted);
+      --border: var(--sand);
+      --card-bg: #fff;
+      --nav-bg: rgba(250,247,242,0.92);
+      --nav-border: var(--sand);
+      --footer-bg: var(--ink);
+      --panel-text: #F0EAE2;
+    }
+    html.dark {
+      --bg-primary: #18120F;
+      --bg-secondary: #1F1712;
+      --text-main: #F0EAE2;
+      --text-muted: #A89B8C;
+      --border: rgba(255,255,255,0.08);
+      --card-bg: #241C18;
+      --nav-bg: rgba(24,18,15,0.92);
+      --nav-border: rgba(255,255,255,0.08);
+      --footer-bg: #100D0A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.25rem 5vw;
+      background: var(--nav-bg);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--nav-border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-brand {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .nav-brand:hover { color: var(--terracotta); }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin: 0; padding: 0;
+    }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-home { display: inline-flex; align-items: center; gap: 4px; line-height: 1; }
+    .nav-right {
+      position: absolute;
+      right: 5vw;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .theme-toggle {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--terracotta); color: var(--terracotta); }
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger:hover { border-color: var(--terracotta); color: var(--terracotta); }
+    @media (max-width: 600px) {
+      nav { padding: 1rem 5vw; justify-content: space-between; }
+      .nav-brand { display: inline-flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--nav-border);
+        padding: 0.5rem 5vw 1rem;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links .nav-ramsey { display: none; }
+      .nav-links a { display: block; padding: 0.65rem 0; font-size: 0.8rem; }
+      .nav-right { position: static; }
+      .hamburger { display: flex; }
+    }
+    html:not(.dark) .icon-sun { display: none; }
+    html.dark .icon-moon { display: none; }
+
+    /* ── LAYOUT ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 5vw 6rem;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 110px;
+      right: 3vw;
+      width: 200px;
+    }
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .sidebar-nav a {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-left: 2px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+      line-height: 1.4;
+      text-align: left;
+    }
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      color: var(--periwinkle);
+      border-left-color: var(--periwinkle);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--periwinkle); }
+    .back-link svg { flex-shrink: 0; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content { min-width: 0; }
+
+    .case-hero {
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8A9E7A;
+      margin-bottom: 1rem;
+    }
+    .case-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+    .case-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: nowrap;
+    }
+    .meta-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 0.25rem;
+    }
+    .meta-value {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Sections */
+    .case-section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 100px;
+    }
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--text-main);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .subsection { margin-bottom: 3rem; }
+    .subsection-heading {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--periwinkle);
+      margin-bottom: 1rem;
+    }
+    .case-body {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      max-width: 680px;
+    }
+
+    /* Overview grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .overview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .overview-card .subsection-heading { margin-bottom: 0.6rem; }
+
+    /* Images */
+    .case-image {
+      width: 100%;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .image-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .image-row .case-image {
+      margin: 0;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+    .image-row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .image-row-3 .case-image {
+      margin: 0;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+    .image-row-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .image-row-4 .case-image {
+      margin: 0;
+      object-fit: contain;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 0.5rem;
+    }
+    .image-row-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .image-row-5 .case-image {
+      margin: 0;
+      object-fit: contain;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 0.5rem;
+    }
+
+    /* Pain points — 2×3 grid */
+    .pain-points-img-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .pain-points-img-grid .case-image {
+      margin: 0;
+      width: 100%;
+      object-fit: contain;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 0.5rem;
+    }
+
+    /* Persona grid */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .persona-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .persona-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .persona-caption {
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .persona-caption strong {
+      display: block;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Wireframe pair: mobile + desktop side by side */
+    .wireframe-pair {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+      margin: 1rem 0 0.5rem;
+    }
+    .wireframe-pair .wf-mobile {
+      width: 80px;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      background: var(--card-bg);
+    }
+    .wireframe-pair .wf-desktop {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      background: var(--card-bg);
+    }
+    .wireframe-caption {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Refine pair: before/after */
+    .refine-pair {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      margin: 1.5rem 0;
+    }
+    .refine-pair .rp-desktop {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      object-fit: cover;
+    }
+    .refine-pair .rp-mobile {
+      width: 100px;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      background: var(--card-bg);
+    }
+
+    /* Mockup row: desktop + mobile */
+    .mockup-pair {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      margin: 1.5rem 0;
+    }
+    .mockup-pair .mp-desktop {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      object-fit: cover;
+    }
+    .mockup-pair .mp-mobile {
+      width: 120px;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      background: var(--card-bg);
+    }
+
+    /* Stat cards */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .stat-card {
+      background: #F4F4F4;
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      display: block;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    html.dark .stat-card { background: var(--card-bg); }
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--periwinkle);
+      margin-bottom: 0.35rem;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Steps list */
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .steps-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .step-dot {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--periwinkle);
+      margin-top: 0.55rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--footer-bg);
+      color: var(--panel-text);
+      text-align: center;
+      padding: 2.5rem 5vw;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1150px) {
+      .sidebar { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-wrapper { padding-top: 90px; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .image-row { grid-template-columns: 1fr; }
+      .image-row-3 { grid-template-columns: 1fr 1fr; }
+      .image-row-4 { grid-template-columns: repeat(2, 1fr); }
+      .image-row-5 { grid-template-columns: repeat(3, 1fr); }
+      .persona-grid { grid-template-columns: 1fr; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .pain-points-img-grid { grid-template-columns: repeat(2, 1fr); }
+      .wireframe-pair { grid-template-columns: 1fr; }
+      .refine-pair { grid-template-columns: 1fr; }
+      .mockup-pair { grid-template-columns: 1fr; }
+    }
+
+    mark.hi { background: rgb(221, 232, 255); color: inherit; border-radius: 2px; padding: 0 2px; font-style: inherit; }
+    html.dark mark.hi { background: rgba(139, 171, 219, 0.28); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">Ramsey
+      <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;">
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/>
+        <circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/>
+      </svg>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-ramsey"><a href="index.html" class="nav-home">Ramsey
+        <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;">
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/>
+          <circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/>
+        </svg>
+      </a></li>
+      <li><a href="index.html#about">About Me</a></li>
+      <li><a href="index.html#portfolio">My Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon-moon" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(-45deg)">
+          <path d="M27.83 8.05 A16 16 0 1 0 27.83 35.95 A14 14 0 0 1 27.83 8.05 Z" fill="currentColor"/>
+          <path d="M31,21 L32.18,24.38 L35.76,24.46 L32.90,26.62 L33.94,30.05 L31,28 L28.06,30.05 L29.10,26.62 L26.24,24.46 L29.82,24.38 Z" fill="currentColor"/>
+          <path d="M37,12.5 L37.82,14.87 L40.33,14.92 L38.33,16.43 L39.06,18.83 L37,17.4 L34.94,18.83 L35.67,16.43 L33.67,14.92 L36.18,14.87 Z" fill="currentColor"/>
+          <path d="M41,21.5 L41.59,23.19 L43.38,23.23 L41.95,24.31 L42.47,26.02 L41,26.5 L39.53,26.02 L40.05,24.31 L38.62,23.23 L40.41,23.19 Z" fill="currentColor" opacity="0.75"/>
+        </svg>
+        <svg class="icon-sun" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22,3 L23.4,13.5 L26.2,10.2 L25.8,15.2 L33.5,9.3 L28.5,17.2 L32.7,16 L29.3,19.5 L40.2,18.5 L30.4,22 L40.2,25.5 L29.3,24.5 L32.7,28 L28.5,26.8 L33.5,34.7 L25.8,28.8 L26.2,33.8 L23.4,30.5 L22,41 L20.6,30.5 L17.8,33.8 L18.2,28.8 L10.5,34.7 L15.5,26.8 L11.3,28 L14.7,24.5 L3.8,25.5 L13.6,22 L3.8,18.5 L14.7,19.5 L11.3,16 L15.5,17.2 L10.5,9.3 L18.2,15.2 L17.8,10.2 L20.6,13.5 Z" fill="currentColor"/>
+          <circle cx="22" cy="22" r="9.5" fill="var(--bg-primary)"/>
+          <circle cx="22" cy="22" r="8" fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a href="index.html#portfolio" class="back-link">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Portfolio
+      </a>
+      <ul class="sidebar-nav">
+        <li><a href="#overview">Project overview</a></li>
+        <li><a href="#user">Understanding the user</a></li>
+        <li><a href="#business">Understanding the business</a></li>
+        <li><a href="#brand">Crafting the brand</a></li>
+        <li><a href="#design">Starting the design</a></li>
+        <li><a href="#details">Adding details</a></li>
+        <li><a href="#testing">Testing the design</a></li>
+        <li><a href="#refining">Refining the design</a></li>
+        <li><a href="#finalizing">Finalizing the design</a></li>
+        <li><a href="#next-steps">Next steps</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- HERO -->
+      <header class="case-hero">
+        <div class="case-label"><strong>Case Study</strong> · UX Design · Branding</div>
+        <h1 class="case-title">Charvick Farm</h1>
+        <img
+          class="case-image"
+          src="https://static.wixstatic.com/media/86619f_2ffebc427fed40c9ac5010106e355592~mv2.png"
+          alt="Charvick Farm high fidelity prototype"
+          style="margin-top: 2rem; border-radius: 1rem; max-width: 100%; border: none; max-height: 400px; object-fit: cover;"
+        />
+        <div class="case-meta" style="margin-top: 2rem;">
+          <div class="meta-item">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">UX Designer</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">2 months</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PROJECT OVERVIEW -->
+      <section class="case-section" id="overview">
+        <h2 class="section-heading">Project overview</h2>
+
+        <div class="overview-grid">
+          <div class="overview-card">
+            <div class="subsection-heading">Brief</div>
+            <p class="case-body" style="margin:0">Charvick Farm is a <mark class="hi">family-owned, small business</mark> that specializes in selling ethically harvested wood products and unique rustic items. It is looking to start a responsive e-commerce website that meets the customers' needs. As the sole UX Designer, I managed this project from inception to final design through research, ideation, and UX design principles.</p>
+          </div>
+          <div class="overview-card">
+            <div class="subsection-heading">Project</div>
+            <p class="case-body" style="margin:0">Design an <mark class="hi">accessible and responsive e-commerce website</mark> that allows customers to securely browse and purchase products directly from Charvick Farm.</p>
+          </div>
+          <div class="overview-card">
+            <div class="subsection-heading">Problem</div>
+            <p class="case-body" style="margin:0">Charvick Farm has <mark class="hi">no online presence</mark>, which makes it difficult for customers to purchase their products without going to the farm in person.</p>
+          </div>
+          <div class="overview-card">
+            <div class="subsection-heading">Solution</div>
+            <p class="case-body" style="margin:0">Design an e-commerce website that allows customers to <mark class="hi">easily and securely browse and purchase</mark> products directly from Charvick Farm.</p>
+          </div>
+        </div>
+
+        <div class="image-row-4" style="margin-top: 2rem;">
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_596e2e4402674168b15d0e7197e52a0e~mv2.png" alt="Charvick Farm mobile screen 1"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_9023ac8fbf4648f2accdebcfd6796e35~mv2.png" alt="Charvick Farm mobile screen 2"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_491d6c58d69a4377ab681fb4b5b80358~mv2.png" alt="Charvick Farm mobile screen 3"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_b21b8160db0a4fc182d2d02dc9d61c6a~mv2.png" alt="Charvick Farm mobile screen 4"/>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING THE USER -->
+      <section class="case-section" id="user">
+        <h2 class="section-heading">Understanding the user</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">User research</div>
+          <p class="case-body">I conducted exploratory research on the <mark class="hi">common pain points of shopping online</mark>. Then, after crafting questions from those research findings, I interviewed people to truly understand the needs, behaviors, and motivations of the users. I used this qualitative and quantitative data to create personas that reflected users.</p>
+          <div class="image-row-3">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_7b6d15e083e2400fb30fabb9acb9a4c4~mv2.png" alt="User research"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_b975f1da6f0a42d2b02d308dbac82745~mv2.png" alt="User research"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_934f5c341824431e94bb6a05f5d0d3a2~mv2.png" alt="User research"/>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Feedback</div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_84c7b95ce27f4202b52af73418fec3d3~mv2.png" alt="User feedback"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_454b133833f442ae90008ee30fa1229f~mv2.png" alt="User feedback"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Personas</div>
+          <div class="persona-grid">
+            <div class="persona-card">
+              <img src="https://static.wixstatic.com/media/86619f_fb12eaa8107c4461980cdeddaf8362e5~mv2.png" alt="Persona: Michelle"/>
+              <div class="persona-caption">
+                <strong>Michelle</strong>
+                A Radiology Technologist who needs to pay with Apple Pay when shopping online because she wants a speedy checkout process while still knowing her payment information is secure.
+              </div>
+            </div>
+            <div class="persona-card">
+              <img src="https://static.wixstatic.com/media/86619f_26cd0963177140f2a2a10d7f22936ced~mv2.png" alt="Persona: Nancy"/>
+              <div class="persona-caption">
+                <strong>Nancy</strong>
+                A passionate biologist who needs to easily and securely purchase products on her mobile phone because she does not have time to sit at the computer and wants to feel confident in the purchases that she makes.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Pain points</div>
+          <div class="pain-points-img-grid">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_0165650935ad4e12bd203174635f9bbd~mv2.png" alt="Pain point 1"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_03b6eab40bca4c6986da617ccec22e2b~mv2.png" alt="Pain point 2"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_97bab90d5766472ca559b92b009a5192~mv2.png" alt="Pain point 3"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_b18f7a6c4b4d4d75ae9f7705fe1a1512~mv2.png" alt="Pain point 4"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_d06a2a43ce73483c8a4f60f2678b2e29~mv2.png" alt="Pain point 5"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING THE BUSINESS -->
+      <section class="case-section" id="business">
+        <h2 class="section-heading">Understanding the business</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Business goals</div>
+          <p class="case-body">After analyzing the user research, I sat down with the executives of Charvick Farm to talk about their <mark class="hi">business goals</mark> and what they wanted to achieve. I wanted to make sure that the website not only reflected the desires of the users but also helped Charvick Farm achieve its goals.</p>
+          <div class="image-row-5">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_0fa9109723f94606ac2a45188814a917~mv2.png" alt="Business goal 1"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_8f0a4f43d7f4446b996bff5a7b2425ab~mv2.png" alt="Business goal 2"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_087335f521274d9db22893e3bc874e62~mv2.png" alt="Business goal 3"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_2bc9b16240f641688d57ce9b2cfbe810~mv2.png" alt="Business goal 4"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_4e7dbac3b6e64668a80cd5a1ce49d329~mv2.png" alt="Business goal 5"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- CRAFTING THE BRAND -->
+      <section class="case-section" id="brand">
+        <h2 class="section-heading">Crafting the brand</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Brainstorming</div>
+          <p class="case-body">After addressing business goals, we began brainstorming about the Charvick Farm brand since the current brand identity was minimal. I wanted to ensure the website retained the <mark class="hi">values and meaning</mark> that Charvick Farm held in the hearts and minds of the founders. I asked them to list any words, phrases, or colors they associated with Charvick Farm, then come up with 5 to 6 keywords that they felt embodied the company. I used this information as the <mark class="hi">design inspiration</mark> moving forward.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_f0a9cf07216c4e2eb06d1aee7fd02bbf~mv2.png" alt="Brand brainstorming"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Choosing the colors</div>
+          <p class="case-body">I combined the color preferences provided by the executives with <mark class="hi">color psychology</mark> to select the best colors for the Charvick Farm brand and website. I incorporated many natural and earthy colors that users would expect from a farm, along with neutral colors that resembled the colors found in wood. Color combinations were also evaluated to ensure they met the <mark class="hi">WCAG 2.0 guidelines</mark> for accessibility.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_212f9dd0b38f4a32bc5989b7cfeafa7a~mv2.png" alt="Color palette"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_64d773db696848c9b68a0661122a773f~mv2.png" alt="Color swatches"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Designing the logo</div>
+          <p class="case-body">We utilized <mark class="hi">Crazy 8's</mark> to ideate logos. Through this activity, we decided that the iconic Charvick Farm sign should be the logo for the company, and I set to work digitalizing the sign.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_4e811f67945c4241b9541de572dc3bab~mv2.png" alt="Logo design process"/>
+        </div>
+      </section>
+
+      <!-- STARTING THE DESIGN -->
+      <section class="case-section" id="design">
+        <h2 class="section-heading">Starting the design</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">User journey map</div>
+          <p class="case-body">I mapped out the <mark class="hi">user flow</mark> to gain an understanding of the steps a user would take to arrive at their end goal. This also helped to identify what screens to include in the design.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_6d847ae6487a4fee833d7c115fc4fbbd~mv2.png" alt="User journey flowchart" style="object-fit: contain; background: var(--card-bg); padding: 1rem;"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Site map</div>
+          <p class="case-body">Afterward, I created a sitemap and organized the information in a way that would be most <mark class="hi">intuitive to users</mark> and promote business goals.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_b3f8688337974353856eaf28183c8625~mv2.png" alt="Site map"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Paper wireframes</div>
+          <p class="case-body">I put pen to paper and began to design wireframes. I made various iterations of the desktop version of the homepage to determine which layout would best suit users at the beginning of their user journey. Then, I sketched the main user flow of <mark class="hi">finding and purchasing an item</mark>, including a few variations of the Cart screen.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_199d51faae9649fa92766a1b951e2523~mv2.png" alt="Paper wireframes - homepage variations"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_b09983894fb241748b4eebd45cd3280e~mv2.png" alt="Paper wireframes - cart variations"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Digital wireframes</div>
+          <p class="case-body">After reviewing the paper wireframes with the Charvick Farm executives, I transferred the most promising features to digital wireframes. I included both <mark class="hi">desktop and mobile</mark> versions to ensure the designs were responsive to a variety of screen sizes.</p>
+
+          <p class="wireframe-caption">Sorting feature to make shopping more efficient</p>
+          <div class="wireframe-pair">
+            <img class="wf-mobile" src="https://static.wixstatic.com/media/86619f_dc06b7373e60476e9dbfe5f6ff5f39ef~mv2.png" alt="Shop sort — mobile wireframe"/>
+            <img class="wf-desktop" src="https://static.wixstatic.com/media/86619f_2674d3e62b394856a61987f4ffd524b6~mv2.png" alt="Shop sort — desktop wireframe"/>
+          </div>
+
+          <p class="wireframe-caption">Lots of space for product information that is located front and center</p>
+          <div class="wireframe-pair">
+            <img class="wf-mobile" src="https://static.wixstatic.com/media/86619f_9672f005286e44ec908847baa23d3b8b~mv2.png" alt="Item page — mobile wireframe"/>
+            <img class="wf-desktop" src="https://static.wixstatic.com/media/86619f_640cba93d60a4c659ad5b62a44c4f916~mv2.png" alt="Item page — desktop wireframe"/>
+          </div>
+
+          <p class="wireframe-caption">Quick checkout process with lots of payment options and breadcrumbs to encourage and inform the user</p>
+          <div class="wireframe-pair">
+            <img class="wf-mobile" src="https://static.wixstatic.com/media/86619f_521d2fb0f36b48ecb47879e49591dcb0~mv2.png" alt="Checkout — mobile wireframe"/>
+            <img class="wf-desktop" src="https://static.wixstatic.com/media/86619f_5d712ea5af384c54a0a9c0a666742e45~mv2.png" alt="Checkout — desktop wireframe"/>
+          </div>
+
+          <p class="wireframe-caption">Easily navigable online store for customers to shop all of Charvick Farm's products</p>
+          <div class="wireframe-pair">
+            <img class="wf-mobile" src="https://static.wixstatic.com/media/86619f_3fd16e3b6fef4853b65199ceb62ef9e6~mv2.png" alt="Home — mobile wireframe"/>
+            <img class="wf-desktop" src="https://static.wixstatic.com/media/86619f_e708b28f330b41e4b352f6f3e30a1199~mv2.png" alt="Home — desktop wireframe"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADDING DETAILS -->
+      <section class="case-section" id="details">
+        <h2 class="section-heading">Adding details</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Prototyping</div>
+          <p class="case-body">I merged the branding into the designs and created a <mark class="hi">high fidelity prototype</mark> of the shopping flow on both desktop and mobile.</p>
+          <div class="mockup-pair">
+            <img class="mp-desktop" src="https://static.wixstatic.com/media/86619f_2ffebc427fed40c9ac5010106e355592~mv2.png" alt="High fidelity prototype — desktop"/>
+            <img class="mp-mobile" src="https://static.wixstatic.com/media/86619f_7a33d4de429741f19b356998ed32108b~mv2.png" alt="High fidelity prototype — mobile"/>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Voice and tone</div>
+          <p class="case-body">Apart from designing the microcopy, I created additional content to enhance the user experience with Charvick Farm and to provide a <mark class="hi">family-owned, small-business feel</mark>. I used title case throughout the designs to give it an old-fashioned flair while using word choice and flow to reflect the fun and relaxed style of the brand. I also emphasized their concern and love for <mark class="hi">sustainability and transparency</mark>, and highlighted the family members who help run the business to encourage a welcoming, "at home" feel for users.</p>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_5f4b824219b04727890dfb867a77b6f8~mv2.png" alt="Voice and tone — screen 1"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_468ffc8e24fb4fb18e0547ab3e580084~mv2.png" alt="Voice and tone — screen 2"/>
+        </div>
+      </section>
+
+      <!-- TESTING THE DESIGN -->
+      <section class="case-section" id="testing">
+        <h2 class="section-heading">Testing the design</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Usability testing</div>
+          <p class="case-body">Usability testing was one of the most important parts of my design process. I conducted usability testing with users who had <mark class="hi">varying degrees of technical expertise</mark> and at least some experience with online shopping. This study offered insights into the parts of the design that were unclear or difficult for the user.</p>
+          <div class="image-row-3">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_0d47f1f5a15f4dc58131173d1439e918~mv2.png" alt="Online shoppers research"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_513ab20dfda54e19904f7765cd6ffbd7~mv2.png" alt="5 usability questions"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_8a0a89a9a6bd4459a9eb6d19c05a200c~mv2.png" alt="Open-ended question"/>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Insights</div>
+          <div class="image-row-3">
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_70df8b31960147d2a0382b142ea346ed~mv2.png" alt="Finding 1"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_fd118ca4440e4b92ba3ffada44e3b681~mv2.png" alt="Finding 2"/>
+            <img class="case-image" src="https://static.wixstatic.com/media/86619f_22ab25fd925c4423ba04d40b07d4ee92~mv2.png" alt="Finding 3"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- REFINING THE DESIGN -->
+      <section class="case-section" id="refining">
+        <h2 class="section-heading">Refining the design</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Usability changes</div>
+          <div class="refine-pair">
+            <img class="rp-desktop" src="https://static.wixstatic.com/media/86619f_bab25a6152cc4d61b3f3f3b68c8b3b27~mv2.png" alt="Cart overlay — desktop"/>
+            <img class="rp-mobile" src="https://static.wixstatic.com/media/86619f_b0e94bb59b0a47e7a7886014197b1334~mv2.png" alt="Cart overlay — mobile"/>
+          </div>
+          <p class="case-body">The cart was changed to be an <mark class="hi">overlay instead of a separate page</mark> to allow users to easily view it without losing their place. A "Save for later" button was also added to provide users with more flexibility when shopping.</p>
+
+          <div class="refine-pair">
+            <img class="rp-desktop" src="https://static.wixstatic.com/media/86619f_49515f4ee8a4451ea7b08bf7db68f132~mv2.png" alt="Checkout wording — desktop"/>
+            <img class="rp-mobile" src="https://static.wixstatic.com/media/86619f_55e80f9d0bc548848c2de7ae824dc655~mv2.png" alt="Checkout wording — mobile"/>
+          </div>
+          <p class="case-body">Wording was made clearer to <mark class="hi">prevent confusion</mark> during the checkout process. Changes included renaming "Shipping" to "Shipping Details" and "Billing" to "Billing Address."</p>
+        </div>
+      </section>
+
+      <!-- FINALIZING THE DESIGN -->
+      <section class="case-section" id="finalizing">
+        <h2 class="section-heading">Finalizing the design</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Mockups</div>
+          <p class="case-body">After incorporating the insights from the usability study, I finalized the mockups. I used <mark class="hi">photos of Charvick Farm's products</mark> to ensure that the website design complemented the products too.</p>
+
+          <div class="mockup-pair">
+            <img class="mp-desktop" src="https://static.wixstatic.com/media/86619f_1dc518cf9893472fb1fbae3e898b50be~mv2.png" alt="Homepage mockup — desktop"/>
+            <img class="mp-mobile" src="https://static.wixstatic.com/media/86619f_11e7df99fd334e9699caded544d84251~mv2.png" alt="Homepage mockup — mobile"/>
+          </div>
+          <div class="mockup-pair">
+            <img class="mp-desktop" src="https://static.wixstatic.com/media/86619f_ee08537466234675a723225ab695d211~mv2.png" alt="Shop page mockup — desktop"/>
+            <img class="mp-mobile" src="https://static.wixstatic.com/media/86619f_5e9bf4d6b6084376980d5a43feaabc54~mv2.png" alt="Shop page mockup — mobile"/>
+          </div>
+          <div class="mockup-pair">
+            <img class="mp-desktop" src="https://static.wixstatic.com/media/86619f_af15aa4d60e54603ba7a25718d996e21~mv2.png" alt="Item page mockup — desktop"/>
+            <img class="mp-mobile" src="https://static.wixstatic.com/media/86619f_fdd59f21a8ac4c71befabb5c40deff58~mv2.png" alt="Item page mockup — mobile"/>
+          </div>
+          <div class="mockup-pair">
+            <img class="mp-desktop" src="https://static.wixstatic.com/media/86619f_d6dd22bb3d7e4b7b8efd20a18f720154~mv2.png" alt="Checkout mockup — desktop"/>
+            <img class="mp-mobile" src="https://static.wixstatic.com/media/86619f_a8f5ff6f7a464beba4117f7af788260b~mv2.png" alt="Checkout mockup — mobile"/>
+          </div>
+          <div class="mockup-pair">
+            <img class="mp-desktop" src="https://static.wixstatic.com/media/86619f_0660fba25fd24526b87ccff0fd316762~mv2.png" alt="Cart mockup — desktop"/>
+            <img class="mp-mobile" src="https://static.wixstatic.com/media/86619f_80312cf1421741dfb198d5faa7f31ea6~mv2.png" alt="Cart mockup — mobile"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEXT STEPS -->
+      <section class="case-section" id="next-steps">
+        <h2 class="section-heading">Next steps</h2>
+        <ul class="steps-list">
+          <li><span class="step-dot"></span>Conduct additional research and study metrics to see if any areas of the user experience need iteration</li>
+          <li><span class="step-dot"></span>Add additional content and graphics to enhance the user experience while emphasizing sustainability and the family-owned, small business aspect</li>
+        </ul>
+      </section>
+
+      <!-- CONCLUSION -->
+      <section class="case-section" id="conclusion">
+        <h2 class="section-heading">Conclusion</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Results</div>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_f3333a4de47e488dbd057a87c2220297~mv2.png" alt="Results card 1"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_ba41b7fa1702421891efc730efd19a5c~mv2.png" alt="Results card 2"/>
+          <img class="case-image" src="https://static.wixstatic.com/media/86619f_32260545d3ec42b896e34cdad24bcbbc~mv2.png" alt="Results card 3"/>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Takeaways</div>
+          <p class="case-body">As an environmentalist, I am thrilled to know that the results of this project will not only benefit the customers of Charvick Farm but will also <mark class="hi">promote sustainability efforts</mark>. While designing this website, I wanted to communicate the importance of user-centered and responsive design while incorporating both the needs of users and business goals. This project taught me a lot about <mark class="hi">collaborating with executives, project management, and combining business goals</mark> with the needs and desires of users. I look forward to using this knowledge and experience in future projects.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>© 2026 Ramsey Gunter · Designed with care</footer>
+
+  <!-- Custom cursor: bow & arrow with periwinkle flowers -->
+  <script>
+  (function() {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+      <line x1="4" y1="4" x2="36" y2="36" stroke="#5558A8" stroke-width="1.8" stroke-linecap="round"/>
+      <polygon points="4,4 12,6 6,12" fill="#5558A8"/>
+      <polygon points="36,36 40,30 34,40" fill="#7B82C9" opacity="0.85"/>
+      <polygon points="36,36 30,40 40,34" fill="#A0A6DB" opacity="0.85"/>
+      <path d="M 10 40 Q 1 1 40 10" fill="none" stroke="#7B82C9" stroke-width="2.8" stroke-linecap="round"/>
+      <line x1="10" y1="40" x2="36" y2="36" stroke="#A0A6DB" stroke-width="1"/>
+      <line x1="40" y1="10" x2="36" y2="36" stroke="#A0A6DB" stroke-width="1"/>
+      <g transform="translate(12,37) rotate(-45)">
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="2.2" fill="#FAF7F2"/>
+      </g>
+      <g transform="translate(5,20) rotate(-45)">
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="2" fill="#FAF7F2"/>
+      </g>
+      <g transform="translate(37,12) rotate(-45)">
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="1.8" fill="#FAF7F2"/>
+      </g>
+      <path d="M 7 29 C 5 26 9 24 8 21" fill="none" stroke="#7B82C9" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+      <path d="M 8 21 C 10 20 9 17 11 16" fill="none" stroke="#7B82C9" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    </svg>`;
+    const noCursor = document.createElement('style');
+    noCursor.textContent = `*, *::before, *::after { cursor: none !important; }`;
+    document.head.appendChild(noCursor);
+
+    const cursorEl = document.createElement('div');
+    cursorEl.style.cssText = `
+      position: fixed; pointer-events: none; z-index: 99999;
+      left: -100px; top: -100px;
+      transform-origin: 4px 4px;
+      will-change: left, top;
+    `;
+    cursorEl.innerHTML = svg;
+    document.body.appendChild(cursorEl);
+
+    document.addEventListener('mousemove', e => {
+      cursorEl.style.left = (e.clientX - 4) + 'px';
+      cursorEl.style.top  = (e.clientY - 4) + 'px';
+    });
+
+    document.addEventListener('click', e => {
+      cursorEl.animate([
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(7px, 7px)',     offset: 0.18 },
+        { transform: 'translate(-4px, -4px)',   offset: 0.32 },
+        { transform: 'translate(1.5px, 1.5px)', offset: 0.50 },
+        { transform: 'translate(0px, 0px)' },
+      ], { duration: 420, easing: 'ease-out' });
+
+      const x = e.clientX, y = e.clientY;
+      [
+        { delay: 0,   color: '#5558A8', maxScale: 3.5 },
+        { delay: 110, color: '#7B82C9', maxScale: 5   },
+        { delay: 220, color: '#A0A6DB', maxScale: 6.5 },
+      ].forEach(({ delay, color, maxScale }) => {
+        const ring = document.createElement('div');
+        ring.style.cssText = `
+          position: fixed; left: ${x}px; top: ${y}px;
+          width: 10px; height: 10px; border-radius: 50%;
+          border: 2px solid ${color};
+          transform: translate(-50%,-50%) scale(0);
+          pointer-events: none; z-index: 9998;
+        `;
+        document.body.appendChild(ring);
+        ring.animate([
+          { transform: 'translate(-50%,-50%) scale(0)', opacity: 1 },
+          { transform: `translate(-50%,-50%) scale(${maxScale})`, opacity: 0 },
+        ], { duration: 550, delay, easing: 'ease-out', fill: 'forwards' });
+        setTimeout(() => ring.remove(), delay + 650);
+      });
+    });
+  })();
+  </script>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') html.classList.add('dark');
+    toggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.case-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sidebarLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
