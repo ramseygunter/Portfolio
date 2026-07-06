@@ -60,7 +60,7 @@
       --footer-text: rgba(255,255,255,0.3);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 
     body {
       background-color: var(--bg-primary);
@@ -538,7 +538,7 @@
       margin: 0;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 860px) {
       .project-rows { padding: 0; }
       .project-row {
         grid-template-columns: 1fr;
@@ -656,6 +656,7 @@
       .nav-links a { display: block; padding: 0.65rem 0; font-size: 0.8rem; }
       .nav-right { position: static; }
       .hamburger { display: flex; }
+      .target-btn { display: none; }
       .about-stats { grid-template-columns: 1fr 1fr; }
     }
 
@@ -682,6 +683,7 @@
       }
     }
   </style>
+  <script>if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark");</script>
 </head>
 <body>
 
@@ -751,7 +753,7 @@
       </div>
       <div class="hero-cta">
         <a href="#portfolio" class="btn btn-primary">View My Work</a>
-        <a href="https://www.ramseygunter.com/_files/ugd/86619f_787d39ff0fd248a4a568823e732cb72f.pdf" target="_blank" class="btn btn-outline">Download Résumé</a>
+        <a href="RamseyGunterRESUME.pdf" target="_blank" class="btn btn-outline">Download Résumé</a>
       </div>
     </div>
     <div class="hero-image">
@@ -774,7 +776,7 @@
           As a UX Designer and Writer with a background in computer science and international studies, I enjoy combining data-driven design with cultural psychology to craft innovative and unique, human-centered experiences. My love for problem-solving and enthusiasm for learning keeps me curious and optimistic in all aspects of life.
         </p>
         <p class="section-body" style="margin-top:1rem;">
-          When I'm not designing, you'll find me exploring the world, studying languages, and practicing mounted archery.
+          When I'm not designing, you'll find me exploring the world, studying languages and folklore, and practicing mounted archery.
         </p>
         <div class="about-stats">
           <div class="stat-card">
@@ -797,33 +799,25 @@
 
     <div class="project-rows">
 
-      <!-- Buildium AI: image | description -->
-      <div class="project-row" onclick="window.location='buildium-ai.html'" style="cursor:pointer">
+      <!-- Buildium AI: description | image -->
+      <div class="project-row reverse" onclick="window.location='prompt-engineering-guidance.html'" style="cursor:pointer">
         <div class="project-row-img">
-          <img src="https://static.wixstatic.com/media/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png/v1/fill/w_640,h_904,q_90,enc_avif,quality_auto/86619f_32b8b0f49ba3472597e45f65e3d352ac~mv2.png" alt="Buildium AI"/>
+          <img src="Prompt Engineering Guidance/PromptEngineeringGuidanceImage.png" alt="Buildium AI" style="transform: scale(1.2); transform-origin: center;"/>
         </div>
         <div class="project-row-info">
           <div class="project-type" style="color: #B8A8D4;">Prompt Engineering · Conversation Design</div>
-          <h3>Buildium AI</h3>
-          <p>Creating prompt engineering guidance for the UX department to design scalable AI-first features.</p>
-        </div>
-      </div>
-
-      <!-- Write with Lumina: description | image -->
-      <div class="project-row reverse">
-        <div class="project-row-img" style="background: #96CDD0;"></div>
-        <div class="project-row-info">
-          <div class="project-type" style="color: #5BAEB0;">Prompt Engineering · UX Writing · Translation</div>
-          <h3>Write with Lumina</h3>
-          <p>An AI writing assistant that gives property managers the ability to draft, revise, and translate communications directly inside Buildium.</p>
+          <h3>Prompt Engineering Guidance</h3>
+          <p>Creating prompt engineering guidance for a UX department to design scalable AI-first features.</p>
         </div>
       </div>
 
       <!-- CLEA: image | description -->
-      <div class="project-row">
-        <div class="project-row-img"></div>
+      <div class="project-row" onclick="window.location='clea.html'" style="cursor:pointer">
+        <div class="project-row-img">
+          <img src="CLEAImage.png" alt="CLEA" style="transform: scale(1.2); transform-origin: center;"/>
+        </div>
         <div class="project-row-info">
-          <div class="project-type">Content Strategy · iOS · Medical Device</div>
+          <div class="project-type" style="color: #1E152E;">Content Strategy · iOS · Medical Device</div>
           <h3>CLEA</h3>
           <p>An iOS-based, mobile corneal topographer for medical professionals that can assess dry eye, keratoconus, astigmatism, corneal power, and more.</p>
         </div>
@@ -832,7 +826,7 @@
       <!-- Waldo: description | image -->
       <div class="project-row reverse" onclick="window.location='waldo.html'" style="cursor:pointer">
         <div class="project-row-img">
-          <img src="https://static.wixstatic.com/media/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_4e4b01936bb44cbe9a8db858a7e891a3~mv2.png" alt="Waldo"/>
+          <img src="Waldo/WaldoImage.png" alt="Waldo" style="transform: scale(1.2); transform-origin: center;"/>
         </div>
         <div class="project-row-info">
           <div class="project-type" style="color: var(--terracotta-light);">UX Writing · E-Commerce</div>
@@ -842,26 +836,28 @@
       </div>
 
       <!-- Onfleek: image | description -->
-      <div class="project-row" onclick="window.location='onfleek.html'" style="cursor:pointer">
-        <div class="project-row-img">
-          <img src="https://static.wixstatic.com/media/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png/v1/fill/w_639,h_452,q_90,enc_avif,quality_auto/86619f_edcfe9d5a7af40abbaf9abee36d60694~mv2.png" alt="OnFleek Travel & Beyond"/>
-        </div>
-        <div class="project-row-info">
-          <div class="project-type" style="color: #6BBFBF;">Content Writing · Localization · Translation</div>
-          <h3>OnFleek Travel & Beyond</h3>
-          <p>Connecting study abroad students with a startup travel company that offers educational, yet fun, weekend trips in Portugal.</p>
-        </div>
-      </div>
-
       <!-- Charvick: description | image -->
-      <div class="project-row reverse" onclick="window.location='charvick-farm.html'" style="cursor:pointer">
+      <div class="project-row" onclick="window.location='charvick-farm.html'" style="cursor:pointer">
         <div class="project-row-img">
-          <img src="https://static.wixstatic.com/media/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png/v1/fill/w_320,h_452,q_90,enc_avif,quality_auto/86619f_15a55e2f742b4f8288fa9f205cb26013~mv2.png" alt="Charvick Farm"/>
+          <img src="Charvick Farm/CharvickFarmImage.png" alt="Charvick Farm"/>
         </div>
         <div class="project-row-info">
           <div class="project-type" style="color: #8A9E7A;">UX Design · Branding</div>
           <h3>Charvick Farm</h3>
           <p>A responsive e-commerce website for a small business specializing in selling ethically harvested wood products and unique rustic items.</p>
+        </div>
+      </div>
+
+      <!-- Write with Lumina: description | image -->
+      <div class="project-row reverse">
+        <div class="project-row-img">
+          <img src="WriteWithLuminaImage.png" alt="Write with Lumina"/>
+        </div>
+        <div class="project-row-info">
+          <div class="project-type" style="color: #2D6A8F;">Prompt Engineering · UX Writing · Translation</div>
+          <h3>Write with Lumina</h3>
+          <p>An AI writing assistant that gives property managers the ability to draft, revise, and translate communications directly inside Buildium.</p>
+          <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#2D6A8F; margin-top:0.75rem;">Coming Soon</p>
         </div>
       </div>
 
@@ -882,7 +878,7 @@
         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
-      <a href="https://www.ramseygunter.com/_files/ugd/86619f_787d39ff0fd248a4a568823e732cb72f.pdf" target="_blank" class="contact-link">
+      <a href="RamseyGunterRESUME.pdf" target="_blank" class="contact-link">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         Download Résumé
       </a>
@@ -1021,6 +1017,7 @@
   <!-- Custom cursor: bow & arrow with periwinkle flowers -->
   <script>
   (function() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
       <!-- Arrow shaft -->
       <line x1="4" y1="4" x2="36" y2="36" stroke="#5558A8" stroke-width="1.8" stroke-linecap="round"/>
