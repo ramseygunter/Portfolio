@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Writing Assistant — Ramsey Gunter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFF9F3;
+      --sand: #E8DDD0;
+      --ink: #1E1A17;
+      --ink-muted: #6B5E52;
+      --terracotta: #B5714A;
+      --terracotta-light: #C8835E;
+      --periwinkle: #7B82C9;
+      --periwinkle-light: #A0A6DB;
+      --periwinkle-dark: #5558A8;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Raleway', system-ui, sans-serif;
+      --bg-primary: var(--cream);
+      --bg-secondary: var(--warm-white);
+      --text-main: var(--ink);
+      --text-muted: var(--ink-muted);
+      --border: var(--sand);
+      --card-bg: #fff;
+      --nav-bg: rgba(250,247,242,0.92);
+      --nav-border: var(--sand);
+      --contact-bg: var(--ink);
+      --footer-bg: var(--ink);
+      --panel-text: #F0EAE2;
+      --contact-text: #C8B9A8;
+    }
+    html.dark {
+      --bg-primary: #18120F;
+      --bg-secondary: #1F1712;
+      --text-main: #F0EAE2;
+      --text-muted: #A89B8C;
+      --border: rgba(255,255,255,0.08);
+      --card-bg: #241C18;
+      --nav-bg: rgba(24,18,15,0.92);
+      --nav-border: rgba(255,255,255,0.08);
+      --contact-bg: #100D0A;
+      --footer-bg: #100D0A;
+      --ink: #F0EAE2;
+    }
+    html.dark .pain-point-header { background: rgba(221,232,255,0.12); }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.25rem 5vw;
+      background: var(--nav-bg);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--nav-border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    /* mobile-only brand; hidden on desktop */
+    .nav-brand {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .nav-brand:hover { color: var(--periwinkle); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--periwinkle); }
+    .nav-home:hover { color: var(--periwinkle) !important; }
+    .nav-home { display: inline-flex; align-items: center; gap: 4px; line-height: 1; }
+
+    .nav-right {
+      position: absolute;
+      right: 5vw;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* ── TARGET BUTTON ── */
+    .target-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .target-btn:hover, .target-btn:active {
+      border-color: #7B82C9;
+      color: #7B82C9;
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      width: 2.2rem;
+      height: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      border-color: #7B82C9;
+      color: #7B82C9;
+    }
+
+    .icon-moon { display: block; }
+    .icon-sun  { display: none;  }
+    html.dark .icon-moon { display: none;  }
+    html.dark .icon-sun  { display: block; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 2.2rem;
+      height: 2.2rem;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger:hover, .hamburger:active { border-color: var(--periwinkle); color: var(--periwinkle); }
+
+    @media (max-width: 780px) {
+                  nav { padding: 1rem 5vw; justify-content: space-between; }
+      .nav-brand { display: inline-flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--nav-border);
+        padding: 0.5rem 5vw 1rem;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links .nav-ramsey { display: none; }
+      .nav-links a { display: block; padding: 0.65rem 0; font-size: 0.8rem; }
+      .nav-right { position: static; }
+      .hamburger { display: flex; }
+
+    }
+    html:not(.dark) .icon-sun { display: none; }
+    html.dark .icon-moon { display: none; }
+
+    /* ── LAYOUT ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 5vw 6rem;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 110px;
+      right: 3vw;
+      width: 200px;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-left: 2px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      color: var(--periwinkle);
+      border-left-color: var(--periwinkle);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--periwinkle); }
+    .back-link svg { flex-shrink: 0; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content { min-width: 0; }
+
+    /* Hero */
+    .case-hero {
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .case-label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B0613A;
+      margin-bottom: 1rem;
+    }
+
+    .case-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+    .case-title em { font-style: normal; color: var(--text-main); }
+
+    .case-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item { }
+    .meta-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B0613A;
+      margin-bottom: 0.25rem;
+    }
+    .meta-value {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Sections */
+    .case-section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 100px;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--text-main);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .subsection {
+      margin-bottom: 3rem;
+    }
+
+    .subsection-heading {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #B0613A;
+      margin-bottom: 1rem;
+    }
+    html.dark .subsection-heading, html.dark .case-label, html.dark .meta-label { color: #DB9468; }
+
+    .case-body {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      max-width: 680px;
+    }
+
+    /* Overview grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .overview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .overview-card .subsection-heading { margin-bottom: 0.6rem; }
+
+    /* Images */
+    .case-image {
+      width: 100%;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .image-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .image-row .case-image {
+      margin: 0;
+      height: 220px;
+      object-fit: contain;
+      border: none;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+
+    /* Interview cards */
+    .interview-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: calc(1.5rem + 34px) 0 1.5rem;
+    }
+    .interview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 0 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      overflow: visible;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .interview-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #B0613A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: -24px;
+      position: relative;
+      z-index: 1;
+    }
+    .interview-icon svg { color: #fff; width: 22px; height: 22px; }
+    .interview-card p {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      .interview-cards { grid-template-columns: 1fr; }
+    }
+
+    /* Pain point numbered list */
+    .pain-points-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .pain-point-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .pain-point-num-circle {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #B0613A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      margin-right: -26px;
+    }
+
+    .pain-point-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0 0.75rem 0.75rem 0;
+      padding: 0 1.25rem 0 36px;
+      flex: 1;
+      min-height: 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .pain-point-title-inline {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .pain-point-desc-inline {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Next steps list */
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .steps-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .step-dot {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--periwinkle);
+      margin-top: 0.55rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--footer-bg);
+      color: var(--panel-text);
+      text-align: center;
+      padding: 2.5rem 5vw;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1150px) {
+      .sidebar { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-wrapper { padding-top: 90px; }
+
+      .case-hero { text-align: center; }
+      .case-label { text-align: center; }
+      .case-title { text-align: center; }
+      .case-meta { justify-content: center; flex-wrap: wrap; gap: 1.25rem; }
+      .section-heading { text-align: center; }
+      .subsection-heading { text-align: center; }
+      .back-link { justify-content: center; width: 100%; }
+      .page-wrapper { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .image-row { grid-template-columns: 1fr; }
+    }
+
+    /* Stat cards */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem 1.4rem;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #B0613A;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    html.dark .stat-number { color: #DB9468; }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 600px) { .stat-cards { grid-template-columns: 1fr; } }
+
+    /* Milestone cards */
+    .milestone-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: calc(1.5rem + 34px) 0 2rem;
+    }
+    .milestone-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 0 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      min-height: 150px;
+      overflow: visible;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .milestone-num {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #B0613A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: -26px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .milestone-title {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    .milestone-title em { font-weight: 400; font-style: normal; color: var(--text-muted); }
+    .milestone-card.cut .milestone-num { background: #D8B49C; }
+    .milestone-card.cut .milestone-title { color: var(--text-muted); }
+    @media (max-width: 600px) { .milestone-cards { grid-template-columns: 1fr; } }
+
+    /* Quote bubbles */
+    .quote-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .quote-bubble {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem 1rem 1rem 0;
+      padding: 1.4rem 1.6rem 1.2rem;
+      position: relative;
+    }
+    .quote-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      border-width: 12px 12px 0 0;
+      border-style: solid;
+      border-color: var(--border) transparent transparent transparent;
+    }
+    .quote-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 1px;
+      border-width: 11px 11px 0 0;
+      border-style: solid;
+      border-color: var(--card-bg) transparent transparent transparent;
+      z-index: 1;
+    }
+    .quote-bubble q {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      quotes: "\201C" "\201D";
+      display: block;
+      margin-bottom: 0.9rem;
+    }
+    .quote-bubble q::before { content: open-quote; }
+    .quote-bubble q::after  { content: close-quote; }
+    .quote-attribution {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-align: right;
+      letter-spacing: 0.01em;
+    }
+    .quote-attribution::before { content: '— '; }
+
+    mark.hi { background: rgb(221, 232, 255); color: inherit; border-radius: 2px; padding: 0 2px; font-style: inherit; }
+    html.dark mark.hi { background: rgba(219, 148, 104, 0.32) !important; color: #F5E6DA; }
+  </style>
+  <script>if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark");</script>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <!-- mobile-only brand -->
+    <a href="index.html" class="nav-brand">Ramsey
+      <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;">
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/>
+        <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/>
+        <circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/>
+      </svg>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-ramsey"><a href="index.html" class="nav-home">Ramsey
+        <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:2px;">
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(72,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(144,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#A0A6DB" transform="rotate(216,12,12)"/>
+          <ellipse cx="12" cy="5.5" rx="3" ry="4.8" fill="#7B82C9" transform="rotate(288,12,12)"/>
+          <circle cx="12" cy="12" r="2.4" fill="var(--bg-primary)"/>
+        </svg>
+      </a></li>
+      <li><a href="index.html#about">About Me</a></li>
+      <li><a href="index.html#portfolio">My Work</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="bow-cursor.html" class="target-btn" aria-label="Bow cursor demo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="3.5" y1="3.5" x2="10.5" y2="10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <polygon points="12,12 9.2,11.2 11.2,9.2" fill="currentColor"/>
+          <line x1="5.0" y1="2.0" x2="2.0" y2="5.0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="4.3" y1="1.3" x2="1.3" y2="4.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="3.6" y1="0.6" x2="0.6" y2="3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon-moon" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(-45deg)">
+          <path d="M27.83 8.05 A16 16 0 1 0 27.83 35.95 A14 14 0 0 1 27.83 8.05 Z" fill="currentColor"/>
+          <path d="M31,21 L32.18,24.38 L35.76,24.46 L32.90,26.62 L33.94,30.05 L31,28 L28.06,30.05 L29.10,26.62 L26.24,24.46 L29.82,24.38 Z" fill="currentColor"/>
+          <path d="M37,12.5 L37.82,14.87 L40.33,14.92 L38.33,16.43 L39.06,18.83 L37,17.4 L34.94,18.83 L35.67,16.43 L33.67,14.92 L36.18,14.87 Z" fill="currentColor"/>
+          <path d="M41,21.5 L41.59,23.19 L43.38,23.23 L41.95,24.31 L42.47,26.02 L41,26.5 L39.53,26.02 L40.05,24.31 L38.62,23.23 L40.41,23.19 Z" fill="currentColor" opacity="0.75"/>
+        </svg>
+        <svg class="icon-sun" width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22,3 L23.4,13.5 L26.2,10.2 L25.8,15.2 L33.5,9.3 L28.5,17.2 L32.7,16 L29.3,19.5 L40.2,18.5 L30.4,22 L40.2,25.5 L29.3,24.5 L32.7,28 L28.5,26.8 L33.5,34.7 L25.8,28.8 L26.2,33.8 L23.4,30.5 L22,41 L20.6,30.5 L17.8,33.8 L18.2,28.8 L10.5,34.7 L15.5,26.8 L11.3,28 L14.7,24.5 L3.8,25.5 L13.6,22 L3.8,18.5 L14.7,19.5 L11.3,16 L15.5,17.2 L10.5,9.3 L18.2,15.2 L17.8,10.2 L20.6,13.5 Z" fill="currentColor"/>
+          <circle cx="22" cy="22" r="9.5" fill="var(--bg-primary)"/>
+          <circle cx="22" cy="22" r="8" fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a href="index.html#portfolio" class="back-link">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Portfolio
+      </a>
+      <ul class="sidebar-nav">
+        <li><a href="#overview">Project overview</a></li>
+        <li><a href="#understanding">Understanding the user</a></li>
+        <li><a href="#discovering">Understanding the market</a></li>
+        <li><a href="#defining-solution">Defining the milestones</a></li>
+        <li><a href="#designing">Milestone 1 (Introduction)</a></li>
+        <li><a href="#content">Diving into content</a></li>
+        <li><a href="#prompt-design">Engineering system prompts</a></li>
+        <li><a href="#usability-testing">Usability testing</a></li>
+        <li><a href="#milestone-2">Milestone 2 (Iteration)</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- HERO -->
+      <header class="case-hero">
+        <div class="case-label"><strong>Case Study</strong> · Prompt Engineering · Content Design · Translation</div>
+        <h1 class="case-title">Writing Assistant</h1>
+        <div style="margin-top: 2rem; border-radius: 1rem; overflow: hidden; line-height: 0;">
+          <img src="WritingAssistantPhoto.png" alt="Writing Assistant hero" style="width: 100%; display: block;"/>
+        </div>
+        <div class="case-meta" style="margin-top: 2rem;">
+          <div class="meta-item">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">Content Designer</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">2 months</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Team</div>
+            <div class="meta-value">Product Designer · Product Manager · Technical Lead · UX Researcher</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PROJECT OVERVIEW -->
+      <section class="case-section" id="overview">
+        <h2 class="section-heading">Project overview</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Brief</div>
+          <p class="case-body">Property managers want to use AI and automation to assist them in property management communications.</p>
+        </div>
+
+        <div class="overview-grid" style="margin-bottom:4.5rem;">
+          <div class="overview-card" style="background:#F5DDCB; border:none; border-radius:12px;">
+            <div class="subsection-heading" style="color:#6B3418;">Problem</div>
+            <p class="case-body" style="margin:0; color:#6B3418;">Property managers were using external AI tools to communicate with residents, but were losing time and lacking consistency with their responses when the AI tools didn't have the context of their portfolio.</p>
+          </div>
+          <div class="overview-card" style="background:#B0613A; border:none; border-radius:12px;">
+            <div class="subsection-heading" style="color:#FFF1E6;">Solution</div>
+            <p class="case-body" style="margin:0; color:#FFF1E6;">Create an in-app AI tool to help property managers create and manage communication that automatically includes the context of their portfolio.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING THE USER -->
+      <section class="case-section" id="understanding">
+        <h2 class="section-heading">Understanding the user</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Discovering opportunities</div>
+          <p class="case-body">Rather than start from scratch, the product designer and I began with what we already knew, reviewing <mark class="hi" style="background:#EBCDB8;">existing strategic research</mark> on AI and automation in property management tech, along with direct customer feedback. This saved us time and research effort.</p>
+          <div class="quote-grid" style="margin-bottom:3rem;">
+            <div class="quote-bubble">
+              <q>I need an easy way to generate communication messages within the platform, so that I don't have to formulate communications myself and switch tabs all the time.</q>
+              <div class="quote-attribution">Property Manager</div>
+            </div>
+          </div>
+          <p class="case-body">Then, we worked with our product manager to organize these findings into opportunity areas, so we could begin identifying common themes in feedback on AI communications.</p>
+          <img class="case-image" src="WritingAssistant/WritingAssistantDiscoveringOpportunities.png" alt="Brainstorming opportunities board"/>
+          <p class="case-body">Communication ranked as the highest-priority area within AI features. Specifically, customers said <mark class="hi" style="background:#EBCDB8;">AI would help most with generating mailings and templates, automating responses, and automating reminders, communications, and announcements.</mark></p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Pain points</div>
+          <div class="pain-points-list">
+
+            <div class="pain-point-row">
+              <div class="pain-point-num-circle">1</div>
+              <div class="pain-point-content">
+                <div class="pain-point-title-inline">Increased workload</div>
+              </div>
+            </div>
+
+            <div class="pain-point-row">
+              <div class="pain-point-num-circle">2</div>
+              <div class="pain-point-content">
+                <div class="pain-point-title-inline">Miscommunication with recipients that spoke different languages</div>
+              </div>
+            </div>
+
+            <div class="pain-point-row">
+              <div class="pain-point-num-circle">3</div>
+              <div class="pain-point-content">
+                <div class="pain-point-title-inline">Inconsistent quality of communication</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-heading">Constraints</div>
+          <div class="interview-cards" style="grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto;">
+            <div class="interview-card">
+              <div class="interview-icon">
+                <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path stroke-linecap="round" d="M12 7v5l3 3"/>
+                  <circle cx="12" cy="3" r="0.5" fill="#fff"/>
+                  <circle cx="12" cy="21" r="0.5" fill="#fff"/>
+                  <circle cx="3" cy="12" r="0.5" fill="#fff"/>
+                  <circle cx="21" cy="12" r="0.5" fill="#fff"/>
+                </svg>
+              </div>
+              <p style="padding: 2rem 0;">Scoped to a <strong>fixed six-month</strong> development budget</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING THE MARKET -->
+      <section class="case-section" id="discovering">
+        <h2 class="section-heading">Understanding the market</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Competitive analysis</div>
+          <p class="case-body">We filled in the gaps in the existing research with an analysis of the competitive landscape. We collected UX inspiration from <mark class="hi" style="background:#EBCDB8;">direct competitors</mark> in property management tech and from <mark class="hi" style="background:#EBCDB8;">companies considered leaders</mark> in the broader AI space, documented what might work for property managers, and used those findings to shape our low fidelity prototypes.</p>
+          <img class="case-image" src="WritingAssistant/WritingAssistantCompetitiveAnalysis.png" alt="Competitive analysis board"/>
+        </div>
+      </section>
+
+      <!-- DEFINING THE MILESTONES -->
+      <section class="case-section" id="defining-solution">
+        <h2 class="section-heading">Defining the milestones</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Organizing the opportunities</div>
+          <img class="case-image" src="WritingAssistant/WritingAssistantResearchMilestone.png" alt="Research milestone" style="margin-top:0;"/>
+          <p class="case-body">The product designer and I worked with our product manager and lead engineer to organize these opportunities into milestones grounded in <mark class="hi" style="background:#EBCDB8;">two business goals</mark>: <mark class="hi" style="background:#EBCDB8;">releasing AI features quickly</mark> and <mark class="hi" style="background:#EBCDB8;">focusing on high-value features</mark> used across the platform. With a fixed six-month development budget for AI Communications, we had to prioritize what was realistically achievable, weighing effort versus impact and engineering feasibility.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Finalizing the milestones</div>
+          <div class="milestone-cards">
+            <div class="milestone-card">
+              <div class="milestone-num">1</div>
+              <div class="milestone-title">Generative AI in Communications</div>
+            </div>
+            <div class="milestone-card">
+              <div class="milestone-num">2</div>
+              <div class="milestone-title">Enhanced AI capabilities</div>
+            </div>
+            <div class="milestone-card cut">
+              <div class="milestone-num">3</div>
+              <div class="milestone-title">AI recipient search <em>(cut)</em></div>
+            </div>
+          </div>
+
+          <p class="case-body">This prioritization led to <mark class="hi" style="background:#EBCDB8;">three milestones</mark> for AI Communications, one of which (AI recipient search) was cut because it required a lot of effort for the impact it would deliver in a first release.</p>
+          <p class="case-body">We did flag it as a strong candidate for a future milestone, pending usage data to justify the investment.</p>
+        </div>
+      </section>
+
+      <!-- MILESTONE 1 -->
+      <section class="case-section" id="designing">
+        <h2 class="section-heading">Milestone 1 (Introduction)</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Milestone 1</div>
+          <p class="case-body">We introduced the new Writing Assistant component within existing communication composers, allowing users to <mark class="hi" style="background:#EBCDB8;">generate messages based on their prompts</mark>.</p>
+          <p class="case-body">We wanted to get this base generation capability into property managers' hands as quickly as possible, so we could start <mark class="hi" style="background:#EBCDB8;">collecting real beta feedback</mark> and <mark class="hi" style="background:#EBCDB8;">usage data</mark>. While that was happening, we continued designing the more advanced capabilities for Milestone 2, <mark class="hi" style="background:#EBCDB8;">building directly on top of this first release</mark>.</p>
+          <img class="case-image" src="WritingAssistant/Milestone1image.png" alt="Milestone 1 Writing Assistant component" style="max-width:460px; margin-left:auto; margin-right:auto;"/>
+          <!-- Image placeholder: <img class="case-image" src="WritingAssistant/WritingAssistantDesign.png" alt="Design process"/> -->
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Tone changes</div>
+          <p class="case-body">I reviewed the most common <mark class="hi" style="background:#EBCDB8;">tone options</mark> from our competitive analysis and selected <mark class="hi" style="background:#EBCDB8;">three</mark> that best fit property managers’ communications. Keeping it to three kept the choice simple for users.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">System prompt</div>
+          <p class="case-body">To ship Milestone 1 quickly, we left most of the system prompt design to the engineers. Our requirements were that every output had to account for the <mark class="hi" style="background:#EBCDB8;">portfolio context</mark>, <mark class="hi" style="background:#EBCDB8;">communication type</mark>, <mark class="hi" style="background:#EBCDB8;">tone</mark>, and <mark class="hi" style="background:#EBCDB8;">the user's prompt</mark>.</p>
+        </div>
+      </section>
+
+      <!-- DIVING INTO CONTENT -->
+      <section class="case-section" id="content">
+        <h2 class="section-heading">Diving into content</h2>
+
+        <img src="WritingAssistant/WritingAssistantLofiMenu.png" alt="Lo-fi mockup of the Writing Assistant menu" style="display:block; margin:0 auto 3rem; width:100%; max-width:360px; border-radius:1rem;"/>
+
+        <div class="subsection">
+          <div class="subsection-heading">Writing and editing</div>
+          <p class="case-body">For Milestone 2, we wanted to <mark class="hi" style="background:#EBCDB8;">provide enhanced features</mark> for revising and editing content. Once again, we leaned on the user research and competitive analysis to determine the types of changes people most often wanted to make to AI-generated text.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Quick actions</div>
+          <p class="case-body">We wanted the Writing Assistant to be <mark class="hi" style="background:#EBCDB8;">accessible to all users</mark>, regardless of prompting experience. For Milestone 2, we kept the <mark class="hi" style="background:#EBCDB8;">standard prompt input</mark> for users who had experience prompting or preferred to write their own prompts. We also added <mark class="hi" style="background:#EBCDB8;">quick actions</mark> for users who were less experienced or less comfortable with prompting.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Translation</div>
+          <img class="case-image" src="WritingAssistant/WritingAssistantTranslate.png" alt="Speech bubbles saying hello, bonjour, and hola" style="width:100%; max-width:100%; margin:0 0 1.5rem; display:block;"/>
+          <p class="case-body">We also heard from users that they wanted translation options in French, Spanish, and English. So, I worked with engineers to provide high-level system prompts for each language, specifically favoring <mark class="hi" style="background:#EBCDB8;">Québécois French</mark> and <mark class="hi" style="background:#EBCDB8;">Latin American Spanish</mark>, since our property managers are based in North and South America.<br><br>I helped quality check during refinement as a Spanish and French speaker, but we eventually passed the feature to the <mark class="hi" style="background:#EBCDB8;">bilingual quality assurance</mark> team for final translation testing.</p>
+        </div>
+
+      </section>
+
+      <!-- PROMPT DESIGN -->
+      <section class="case-section" id="prompt-design">
+        <h2 class="section-heading">Engineering system prompts</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">System prompt designs</div>
+          <p class="case-body">In Milestone 2, we built on the Milestone 1 system prompt and the translation instructions. Based on Milestone 1 feedback, we <mark class="hi" style="background:#EBCDB8;">enhanced</mark> the main system prompt and wrote additional prompts for each quick action to better support users. I worked closely with engineers to <mark class="hi" style="background:#EBCDB8;">review sample outputs</mark> and <mark class="hi" style="background:#EBCDB8;">iterate</mark> on the system prompts, tweaking them until the results matched the tone and intent users expected.</p>
+          <img class="case-image" src="WritingAssistant/WritingAssistantSystemPrompt.png" alt="Diagram showing portfolio context, communication type, tone, and user prompt feeding into the system prompt, which produces a generated message" style="width:100%; max-width:100%; margin:1.5rem 0 0; display:block;"/>
+        </div>
+      </section>
+
+      <!-- USABILITY TESTING -->
+      <section class="case-section" id="usability-testing">
+        <h2 class="section-heading">Usability testing</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Testing</div>
+          <p class="case-body">I conducted usability testing with the enhanced Writing Assistant to <mark class="hi" style="background:#EBCDB8;">validate</mark> that the revising and editing in Milestone 2 was useful, and that the quick actions were easily understood and helpful to users. Testing confirmed that these options were <mark class="hi" style="background:#EBCDB8;">useful and easily understood</mark> by users, apart from one option, which I changed to provide more clarity.</p>
+        </div>
+      </section>
+
+      <!-- MILESTONE 2 -->
+      <section class="case-section" id="milestone-2">
+        <h2 class="section-heading">Milestone 2 (Iteration)</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Iterating</div>
+          <p class="case-body">In the final release, based on the usage data and feedback we collected from Milestone 1, we introduced the ability for users to <mark class="hi" style="background:#EBCDB8;">revise and update message tone</mark>, <mark class="hi" style="background:#EBCDB8;">enhance and adjust messaging with quick actions</mark>, and <mark class="hi" style="background:#EBCDB8;">translate communications into French, Spanish, and English</mark>.</p>
+        </div>
+      </section>
+
+      <!-- CONCLUSION -->
+      <section class="case-section" id="conclusion">
+        <h2 class="section-heading">Conclusion</h2>
+
+        <div class="subsection">
+          <div class="subsection-heading">Results</div>
+          <p class="case-body" style="margin-bottom:0;">There has been strong early adoption, with the full impact still coming into focus, but as of <mark class="hi" style="background:#EBCDB8;">March 11, 2025</mark> there has been:</p>
+          <div class="stat-cards">
+            <div class="stat-card">
+              <div class="stat-number">386</div>
+              <div class="stat-label">beta sign ups since Feb 18</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">450</div>
+              <div class="stat-label">emails, texts, announcements &amp; templates generated</div>
+            </div>
+          </div>
+          <div class="quote-grid">
+            <div class="quote-bubble">
+              <q>I don't send [messages] right away because sometimes I'm emotional and you don't want to send. Now I can write my nasty notes in the e-mail what I want to say and not have to wait 24 hours and go back and reread it before I send it out.</q>
+              <div class="quote-attribution">User</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-heading">Takeaways</div>
+          <p class="case-body">This project taught me a lot about system prompt design, the limitations of LLMs, and how critical it is to <mark class="hi" style="background:#EBCDB8;">work in tandem with engineers</mark> for <mark class="hi" style="background:#EBCDB8;">conversation design</mark>. It also led me to join an <mark class="hi" style="background:#EBCDB8;">AI UX Evals team</mark>, where I help ensure AI features across the app respond in accordance with our guidelines and users’ expectations.<br><br>If I had to do this project all over again, I would have pushed to extend the timeline so that I could have worked even more closely with engineers during Milestone 1 to shape the system prompt, and thus the user experience. This would have put our Writing Assistant one step closer to being perfectly tailored to our users. Despite the timeline, I am thrilled this project has had such positive reviews from the users and has helped them communicate better and more easily with their staff and tenants.</p>
+        </div>
+
+        <a href="index.html#portfolio" class="back-link" style="margin-top:3rem;display:inline-flex;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          Back to portfolio
+        </a>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Custom cursor: bow & arrow with periwinkle flowers -->
+  <script>
+  (function() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="-6 -6 60 60">
+      <line x1="4" y1="4" x2="36" y2="36" stroke="#5558A8" stroke-width="1.8" stroke-linecap="round"/>
+      <polygon points="4,4 12,6 6,12" fill="#5558A8"/>
+      <polygon points="36,36 40,30 34,40" fill="#7B82C9" opacity="0.85"/>
+      <polygon points="36,36 30,40 40,34" fill="#A0A6DB" opacity="0.85"/>
+      <path d="M 10 40 Q 1 1 40 10" fill="none" stroke="#7B82C9" stroke-width="2.8" stroke-linecap="round"/>
+      <line x1="10" y1="40" x2="36" y2="36" stroke="#A0A6DB" stroke-width="1"/>
+      <line x1="40" y1="10" x2="36" y2="36" stroke="#A0A6DB" stroke-width="1"/>
+      <g transform="translate(12,37) rotate(-45)">
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-4.2" rx="2.1" ry="3.4" fill="#7B82C9" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="2.2" fill="#FAF7F2"/>
+      </g>
+      <g transform="translate(5,20) rotate(-45)">
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.8" rx="1.9" ry="3" fill="#A0A6DB" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="2" fill="#FAF7F2"/>
+      </g>
+      <g transform="translate(37,12) rotate(-45)">
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-3.2" rx="1.7" ry="2.7" fill="#7B82C9" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="1.8" fill="#FAF7F2"/>
+      </g>
+    </svg>`;
+    const noCursor = document.createElement('style');
+    noCursor.textContent = `*, *::before, *::after { cursor: none !important; }`;
+    document.head.appendChild(noCursor);
+
+    const cursorEl = document.createElement('div');
+    cursorEl.style.cssText = `
+      position: fixed; pointer-events: none; z-index: 99999;
+      left: -100px; top: -100px;
+      transform-origin: 4px 4px;
+      will-change: left, top;
+    `;
+    cursorEl.innerHTML = svg;
+    document.body.appendChild(cursorEl);
+
+    document.addEventListener('mousemove', e => {
+      cursorEl.style.left = (e.clientX - 4) + 'px';
+      cursorEl.style.top  = (e.clientY - 4) + 'px';
+    });
+
+    document.addEventListener('click', e => {
+      cursorEl.animate([
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(7px, 7px)',     offset: 0.18 },
+        { transform: 'translate(-4px, -4px)',   offset: 0.32 },
+        { transform: 'translate(1.5px, 1.5px)', offset: 0.50 },
+        { transform: 'translate(0px, 0px)' },
+      ], { duration: 420, easing: 'ease-out' });
+
+      const x = e.clientX, y = e.clientY;
+      [
+        { delay: 0,   color: '#5558A8', maxScale: 3.5 },
+        { delay: 110, color: '#7B82C9', maxScale: 5   },
+        { delay: 220, color: '#A0A6DB', maxScale: 6.5 },
+      ].forEach(({ delay, color, maxScale }) => {
+        const ring = document.createElement('div');
+        ring.style.cssText = `
+          position: fixed; left: ${x}px; top: ${y}px;
+          width: 10px; height: 10px; border-radius: 50%;
+          border: 2px solid ${color};
+          transform: translate(-50%,-50%) scale(0);
+          pointer-events: none; z-index: 9998;
+        `;
+        document.body.appendChild(ring);
+        ring.animate([
+          { transform: 'translate(-50%,-50%) scale(0)', opacity: 1 },
+          { transform: `translate(-50%,-50%) scale(${maxScale})`, opacity: 0 },
+        ], { duration: 550, delay, easing: 'ease-out', fill: 'forwards' });
+        setTimeout(() => ring.remove(), delay + 650);
+      });
+    });
+  })();
+  </script>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') html.classList.add('dark');
+    toggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Active sidebar link on scroll
+    const sections = document.querySelectorAll('.case-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sidebarLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Ramsey Gunter</span>
+  </footer>
+</body>
+</html>
